@@ -1,15 +1,15 @@
 <script>
-  import Header from "../lib/components/Header.svelte";
+  import { page } from "$app/stores";
+  import Navigator from "../lib/components/Navigator.svelte";
   import "./styles.css";
   import "../app.postcss";
 </script>
 
 <div class="app">
-  <Header />
-
   <main>
     <slot />
   </main>
+  <Navigator />
 </div>
 
 <style>
