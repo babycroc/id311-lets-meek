@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
-    "daisyui": "2.52.0"
+    "daisyui": "2.52.0",
+    "firebase": "^9.22.1"
   }
 }
