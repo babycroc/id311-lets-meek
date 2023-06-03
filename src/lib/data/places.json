@@ -1,20 +1,184 @@
 [
   {
-    "buildingName": "N_something",
-    "envs": ["loud", "quiet"],
+    "buildingName": "E9 Academic Cultural Complex",
+    "envs": [
+      "quiet",
+      "quiet",
+      "quiet"
+    ],
     "location": {
-      "lat": 0,
-      "long": 0
+      "lat": 36.3693,
+      "long": 127.3628
     },
-    "rooms": [414, 415]
+    "rooms": [
+      203,
+      303,
+      404
+    ]
   },
   {
-    "buildingName": "N_something",
-    "envs": ["loud", "quiet"],
+    "buildingName": "N13-1 Chang Young Shin Student Center",
+    "envs": [
+      "loud",
+      "moderate"
+    ],
     "location": {
-      "lat": 0,
-      "long": 0
+      "lat": 36.3733,
+      "long": 127.3606
     },
-    "rooms": [414, 415]
+    "rooms": [
+      101,
+      201
+    ]
+  },
+  {
+    "buildingName": "N25 Department of Industrial Design",
+    "envs": [
+      "loud",
+      "moderate",
+      "moderate"
+    ],
+    "location": {
+      "lat": 36.3737,
+      "long": 127.3621
+    },
+    "rooms": [
+      414,
+      215,
+      409
+    ]
+  },
+  {
+    "buildingName": "E3-2 School of Electrical Enginnering",
+    "envs": [
+      "quiet",
+      "quiet",
+      "quiet"
+    ],
+    "location": {
+      "lat": 36.369,
+      "long": 127.3652
+    },
+    "rooms": [
+      2215,
+      2208,
+      2223
+    ]
+  },
+  {
+    "buildingName": "N10 Undergraduate Branch Library",
+    "envs": [
+      "quiet",
+      "quiet",
+      "moderate"
+    ],
+    "location": {
+      "lat": 36.3742,
+      "long": 127.3604
+    },
+    "rooms": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "buildingName": "N7 Mechanical Enginnering Building",
+    "envs": [
+      "quiet",
+      "quiet"
+    ],
+    "location": {
+      "lat": 36.3724,
+      "long": 127.3587
+    },
+    "rooms": [
+      2424,
+      2425
+    ]
+  },
+  {
+    "buildingName": "E3-1 School of Computing",
+    "envs": [
+      "quiet",
+      "quiet"
+    ],
+    "location": {
+      "lat": 36.3681,
+      "long": 127.3658
+    },
+    "rooms": [
+      1018,
+      3031
+    ]
+  },
+  {
+    "buildingName": "E11 Creative Learning Building",
+    "envs": [
+      "quiet",
+      "quiet"
+    ],
+    "location": {
+      "lat": 36.3704,
+      "long": 127.3626
+    },
+    "rooms": [
+      403,
+      301
+    ]
+  },
+  {
+    "buildingName": "E16 Department of Bio and Brain Engineering",
+    "envs": [
+      "quiet",
+      "quiet"
+    ],
+    "location": {
+      "lat": 36.3716,
+      "long": 127.3619
+    },
+    "rooms": [
+      203,
+      207
+    ]
+  },
+  {
+    "buildingName": "Cafe Droptop",
+    "envs": [
+      "moderate"
+    ],
+    "location": {
+      "lat": 36.37,
+      "long": 127.3599
+    },
+    "rooms": [
+      1
+    ]
+  },
+  {
+    "buildingName": "Cafe Dream",
+    "envs": [
+      "loud"
+    ],
+    "location": {
+      "lat": 36.3723,
+      "long": 127.3586
+    },
+    "rooms": [
+      1
+    ]
+  },
+  {
+    "buildingName": "Cafe Pascucci",
+    "envs": [
+      "loud"
+    ],
+    "location": {
+      "lat": 36.3686,
+      "long": 127.3646
+    },
+    "rooms": [
+      1
+    ]
   }
 ]
