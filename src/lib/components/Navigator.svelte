@@ -13,19 +13,19 @@
   </button>
   <button
     class={`${
-      $page.url.pathname === "/" ? "active" : ""
-    } bg-purple-100 text-purple-700`}
-    on:click={() => (window.location.href = "/")}
-  >
-    <i class="fa-solid fa-house" />
-  </button>
-  <button
-    class={`${
       $page.url.pathname.startsWith("/groups") ? "active" : ""
     } bg-purple-100 text-purple-700`}
     on:click={() => (window.location.href = "/groups")}
   >
     <i class="fa-solid fa-user-group" />
+  </button>
+  <button
+    class={`${
+      $page.url.pathname.startsWith("/meetings") ? "active" : ""
+    } bg-purple-100 text-purple-700`}
+    on:click={() => (window.location.href = "/meetings")}
+  >
+    <i class="fa-solid fa-clock" />
   </button>
 </div>
 

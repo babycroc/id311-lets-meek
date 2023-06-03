@@ -9,7 +9,7 @@
   <main>
     <slot />
   </main>
-  {#if $page.url.pathname !== "/login"}
+  {#if $page.url.pathname !== "/" && $page.url.pathname !== "/login"}
     <Navigator />
   {/if}
 </div>

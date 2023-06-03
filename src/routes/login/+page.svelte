@@ -17,7 +17,7 @@
   <label class="label" />
   <button
     class="btn btn-outline w-full"
-    on:click={() => (window.location.href = "/")}>Login</button
+    on:click={() => (window.location.href = "/groups")}>Login</button
   >
 </div>
 

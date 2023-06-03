@@ -5,7 +5,10 @@
   <title>Home</title>
 </svelte:head>
 
-<section />
+<button
+  class="btn btn-outline w-full"
+  on:click={() => (window.location.href = "/login")}>Enter</button
+>
 
 <style>
 </style>
