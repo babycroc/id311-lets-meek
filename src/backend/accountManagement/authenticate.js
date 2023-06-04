@@ -53,7 +53,7 @@ export const authStore = writable({ // to keep the logged-in user data
     data: {}
 })
 
-// check user state change to create account or login
+// check user state change to create account or login and store into the database
 // if user not logged-in, it will redirect to
 export async function onUserStateChanged() {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
