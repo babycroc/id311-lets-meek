@@ -1,16 +1,16 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth, db } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase.js";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { writable } from "svelte/store";
 
 const authHandlers = {
     // @ts-ignore
     signup: async (email, pass) => {
-        await createUserWithEmailAndPassword(auth, email, pass)
+        return await createUserWithEmailAndPassword(auth, email, pass)
     },
     // @ts-ignore
     login: async (email, pass) => {
-        await signInWithEmailAndPassword(auth, email, pass)
+        return await signInWithEmailAndPassword(auth, email, pass);
     },
     logout: async () => {
         await signOut(auth)
@@ -22,7 +22,7 @@ export async function handleRegister(email, password, confirmPass) {
         if (!email || !password || !confirmPass || password != confirmPass) {
             throw "email or password is not valid!"
         }
-        await authHandlers.signup(email, password);
+        return await authHandlers.signup(email, password);
     } catch(err) {
         console.log("There was a register error: ", err);
     }
@@ -33,7 +33,7 @@ export async function handleLogin(email, password) {
         if (!email || !password) {
             throw "email or password is not valid!"
         }
-        await authHandlers.login(email, password);
+        return await authHandlers.login(email, password);
     } catch(err) {
         console.log("There was a login error: ", err);
     }
