@@ -1,4 +1,5 @@
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
+import { db } from "../firebase/firebase.js";
 
 class User {
     constructor(email, id, groups, schedule, meetings) {
@@ -15,6 +16,11 @@ class User {
 
     addNewLocation(wday, startH, startM, endH, endM, x, y) {
         this.schedule.addNewLocation(wday, startH, startM, endH, endM, x ,y);
+    }
+
+    async updateDb() {
+        const ref = doc(db, "users", this.id).withConverter(userConverter);
+        await setDoc(ref, this, { merge: false });
     }
 }
 
