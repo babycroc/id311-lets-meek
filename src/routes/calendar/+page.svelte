@@ -3,6 +3,7 @@
     import { authHandlers, authStore } from "../../store/store";
     import { getDoc, doc, setDoc } from "firebase/firestore";
     import CalendarItem from "../../components/CalendarItem.svelte";
+    import { userDocModel } from "../../store/userDocModel";
 
     let todoList = [];
     let currTodo = "";
@@ -44,12 +45,12 @@
             await setDoc(
                 userRef,
                 {
-                    todos: todoList,
+                    ...userDocModel
                 },
                 { merge: true }
             );
         } catch (err) {
-            console.log("There was an error saving your information");
+            console.log(`There was an error saving your information: {}`, err);
         }
     }
 </script>

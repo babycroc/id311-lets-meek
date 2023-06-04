@@ -35,8 +35,8 @@
           const docSnap = await getDoc(docRef);
           if (!docSnap.exists()) {
               console.log("Creating User");
-              const userRef = doc(db, "users", user.uid);
-              dataToSetToStore = {
+              const userRef = doc(db, "users", user.uid); // create user.uid doc within "users" collection
+              dataToSetToStore = { // data to store in the doc userRef
                   email: user.email,
                   todos: [],
               };
@@ -48,7 +48,7 @@
           }
 
           // @ts-ignore
-          authStore.update((curr) => {
+          authStore.update((curr) => { // store the logged-in user data
               return {
                   ...curr,
                   user,
@@ -57,6 +57,7 @@
                   loading: false,
               };
           });
+          console.log(authStore);
       });
       return unsubscribe;
   });

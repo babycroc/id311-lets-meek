@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { writable } from "svelte/store";
 import { auth } from "../lib/firebase/firebase";
 
-export const authStore = writable({
+export const authStore = writable({ // to keep the logged-in user data
     user: null,
     loading: true,
     data: {}
