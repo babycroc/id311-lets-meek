@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { getDoc, doc, setDoc } from "firebase/firestore";
+import { writable } from "svelte/store";
 
 const authHandlers = {
     // @ts-ignore
