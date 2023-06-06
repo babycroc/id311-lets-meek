@@ -28,8 +28,8 @@ async function testUser() {
     let docSnap = await getDoc(ref);
     let curUser = docSnap.data();
     curUser.addNewFixedFrame("Monday", 0, 0, 1, 0);
-    curUser.addNewLocation("Monday", 0, 0, 1, 0, "127.3628", "36.3693");
-    await setDoc(ref, curUser, { merge: false });
+    curUser.addNewLocation("Monday", 0, 0, 1, 0, "127.3628", "36.3692");
+    await curUser.updateDb();
 }
 
 // testLogin();

@@ -1,5 +1,6 @@
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
 import { db } from "../firebase/firebase.js";
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
 
 class User {
     constructor(email, id, groups, schedule, meetings) {
