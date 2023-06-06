@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Meeting<span class="signature">(id, name, groupId, x, y, startTime, endTime)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Meeting<span class="signature">(id, name, groupId, x, y, startTime, endTime, row, colStart, colEnd)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h2>
         
             <div class="class-description">This class represents a meeting.</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Meeting"><span class="type-signature"></span>new Meeting<span class="signature">(id, name, groupId, x, y, startTime, endTime)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h4>
+    <h4 class="name" id="Meeting"><span class="type-signature"></span>new Meeting<span class="signature">(id, name, groupId, x, y, startTime, endTime, row, colStart, colEnd)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h4>
     
 
     
@@ -243,6 +243,75 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the row index of the schedule table</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colStart</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the starting col index of the schedule table</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colEnd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the ending col index of the schedule table</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -280,7 +349,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line17">line 17</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -406,7 +475,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line79">line 79</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -544,7 +613,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line96">line 96</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line117">line 117</a>
     </li></ul></dd>
     
 
@@ -632,7 +701,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line72">line 72</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line90">line 90</a>
     </li></ul></dd>
     
 
@@ -668,7 +737,7 @@ Then synce with firebase.
     
 
     
-    <h4 class="name" id=".createNewMeeting"><span class="type-signature">(async, static) </span>createNewMeeting<span class="signature">(group, name, x, y, startTime, endTime)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h4>
+    <h4 class="name" id=".createNewMeeting"><span class="type-signature">(async, static) </span>createNewMeeting<span class="signature">(group, name, x, y, wday, startH, startM, endH, endM)</span><span class="type-signature"> &rarr; {<a href="Meeting.html">Meeting</a>}</span></h4>
     
 
     
@@ -678,6 +747,7 @@ Then synce with firebase.
 <div class="description">
     Create a new meeting. Group ID will be automatically assigned to meeting.groupId,
 and meeting ID will also be added to meetings array of the group.
+Update meeting to schedule of every user in the group.
 Then upload to firebase.
 </div>
 
@@ -806,13 +876,13 @@ Then upload to firebase.
 
         <tr>
             
-                <td class="name"><code>startTime</code></td>
+                <td class="name"><code>wday</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">String</span>
 
 
             
@@ -822,14 +892,14 @@ Then upload to firebase.
 
             
 
-            <td class="description last">starting time of the meeting</td>
+            <td class="description last">weekday of the meeting</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>endTime</code></td>
+                <td class="name"><code>startH</code></td>
             
 
             <td class="type">
@@ -845,7 +915,76 @@ Then upload to firebase.
 
             
 
-            <td class="description last">ending time of the meeting</td>
+            <td class="description last">starting hour of the meeting</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ending hour of the meeting</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endH</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ending hour of the meeting</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ending minute of the meeting</td>
         </tr>
 
     
@@ -886,7 +1025,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line53">line 53</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -1041,7 +1180,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line34">line 34</a>
+        <a href="meetingManagement_meetingClass.js.html">meetingManagement/meetingClass.js</a>, <a href="meetingManagement_meetingClass.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -1111,7 +1250,7 @@ Then upload to firebase.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 06 2023 23:35:26 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 07 2023 03:51:22 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

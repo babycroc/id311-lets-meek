@@ -97,7 +97,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line4">line 4</a>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -164,6 +164,143 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addMeetingToSchedule"><span class="type-signature"></span>addMeetingToSchedule<span class="signature">(meeting)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Add a meeting timeframe to timetable. The timestamp will be set as endTime of the meeting
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>meeting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Meeting.html">Meeting</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a Meeting object that you need to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
             
@@ -364,7 +501,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line58">line 58</a>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -639,7 +776,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line76">line 76</a>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -664,6 +801,207 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".computeTimestamp"><span class="type-signature">(static) </span>computeTimestamp<span class="signature">(weekday, hour, minute)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Convert a weekday and time to an integer timestamp by comparing with current timestamp.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>weekday</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hour</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minute</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line111">line 111</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -822,7 +1160,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line31">line 31</a>
+        <a href="scheduleManagement_scheduleClass.js.html">scheduleManagement/scheduleClass.js</a>, <a href="scheduleManagement_scheduleClass.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -892,7 +1230,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 06 2023 23:35:26 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 07 2023 03:51:22 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

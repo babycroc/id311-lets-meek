@@ -122,6 +122,7 @@ class User {
     async addMeeting(meeting) {
         if (!this.meetings.includes(meeting.id)) {
             this.meetings.push(meeting.id);
+            this.schedule.addMeetingToSchedule(meeting);
             await this.updateDb();
         }
     }

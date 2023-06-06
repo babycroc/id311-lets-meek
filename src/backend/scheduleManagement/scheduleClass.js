@@ -1,3 +1,5 @@
+import { Meeting } from "../meetingManagement/meetingClass.js";
+
 /**
  * This class contains a 2d array that stores the timetable for each user.
  */
@@ -81,6 +83,50 @@ class Schedule {
             this.table[x1][i].x = x;
             this.table[x1][i].y = y;
         }
+    }
+
+    /**
+     * Add a meeting timeframe to timetable. The timestamp will be set as endTime of the meeting
+     * @param {Meeting} meeting a Meeting object that you need to add
+     */
+    addMeetingToSchedule(meeting) {
+        const row = meeting.row;
+        const colStart = meeting.colStart;
+        const colEnd = meeting.colEnd;
+        for (let i=colStart; i<colEnd; i++) {
+            this.table[row][i].timeStamp = meeting.endTime;
+            this.table[row][i].x = meeting.x;
+            this.table[row][i].y = meeting.y;
+            this.table[row][i].meetingId = meeting.id;
+        }
+    }
+
+    /**
+     * Convert a weekday and time to an integer timestamp by comparing with current timestamp.
+     * @param {String} weekday
+     * @param {Number} hour
+     * @param {Number} minute
+     * @returns {Number}
+     */
+    static computeTimestamp(weekday, hour, minute) {
+        let dateObj = new Date();
+        let currentWeekday = dateObj.getDay();
+        if (currentWeekday>0) currentWeekday--;
+        else currentWeekday = 6;
+        let [targetWeekday, targetHour] = Schedule.timeToIndex(weekday, hour, minute);
+        
+        let resTimestamp = 0;
+        dateObj.setHours(hour, minute, 0, 0);
+        if (targetWeekday <= currentWeekday) {
+            resTimestamp = dateObj.getTime() + (6-currentWeekday)*86400000 + (targetWeekday+1)*86400000;
+            // dateObj.setTime(resTimestamp);
+            // console.log(dateObj.toString());
+        } else {
+            resTimestamp = dateObj.getTime() + (targetWeekday-currentWeekday)*86400000;
+            // dateObj.setTime(resTimestamp);
+            // console.log(dateObj.toString());
+        }
+        return resTimestamp;
     }
 }
 
