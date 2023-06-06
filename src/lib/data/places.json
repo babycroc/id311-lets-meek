@@ -20,7 +20,9 @@
     "buildingName": "N13-1 Chang Young Shin Student Center",
     "envs": [
       "loud",
-      "moderate"
+      "moderate",
+      "loud",
+      "loud"
     ],
     "location": {
       "lat": 127.3606,
@@ -181,6 +183,19 @@
     },
     "rooms": [
       "open space"
+    ]
+  },
+  {
+    "buildingName": "KAIST Lounge",
+    "envs": [
+      "loud"
+    ],
+    "location": {
+      "lat": 127.3579148,
+      "long": 36.3737580
+    },
+    "rooms": [
+      "Lounge"
     ]
   }
 ]
