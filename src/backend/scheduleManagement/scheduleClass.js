@@ -43,11 +43,23 @@ class Schedule {
         return [col, row];
     }
     
-    // static indexToTime(col) {
-    //     if (col < 0 || col > 6) return "out of range";
-    //     const wd = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    //     return wd[col];
-    // }
+    /**
+     * Convert the index of schedule.table to an array of [Weekday, hour, minune].
+     * @param {Number} row row index
+     * @param {Number} col column index
+     * @returns {Array(Weekday, hour, minune)}
+     */
+    static indexToTime(row, col) {
+        try {
+            if (row < 0 || row > 6) throw "Index out of range!";
+            const wd = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const minute = (col*30) % 60;
+            const hour = Math.floor((col*30) / 60);
+            return [wd[row], hour, minute];
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     /**
      * Add a timeframe to timetable as fixed-schedule. The timestamp will be set to -1.
