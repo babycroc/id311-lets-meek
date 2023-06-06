@@ -79,7 +79,7 @@ class Group {
             if (this.meetings.length > 0) throw "fail to add member since this group already has meetings!"
             this.users.push(user.id);
             await this.updateDb();
-            await user.addGroup();
+            await user.addGroup(this);
         } catch (err) {
             console.log("There was an error:", err);
         }
@@ -87,6 +87,7 @@ class Group {
 
     /**
      * Add a meeting into meetings list of this group.
+     * Also add meeting into meetings list of every user in the group.
      * Then synce with firebase.
      * @param {Meeting} meeting an Meeting object that you want to add
      */
@@ -94,7 +95,15 @@ class Group {
         if (!this.meetings.includes(meeting.id)) {
             this.meetings.push(meeting.id);
             await this.updateDb();
+            for (let i=0; i<this.users.length; i++) {
+                let user = await User.getUserById(this.users[i]);
+                await user.addMeeting(meeting);
+            }
         }
+    }
+
+    async getGroupSchedule() {
+        
     }
 }
 

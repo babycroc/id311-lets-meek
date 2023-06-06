@@ -47,9 +47,9 @@ class User {
      * @param {Number} endH end hour: from 0 to 23
      * @param {Number} endM end minute: from 0 to 59
      */
-    addNewFixedFrame(wday, startH, startM, endH, endM) {
+    async addNewFixedFrame(wday, startH, startM, endH, endM) {
         this.schedule.addNewFixedFrame(wday, startH, startM, endH, endM);
-        this.updateDb();
+        await this.updateDb();
     }
 
     /**
@@ -63,9 +63,9 @@ class User {
      * @param {String} x x-coordinate for the location during this timeframe
      * @param {String} y y-coordinate for the location during this timeframe
      */
-    setLocation(wday, startH, startM, endH, endM, x, y) {
-        this.schedule.addNewLocation(wday, startH, startM, endH, endM, x ,y);
-        this.updateDb();
+    async setLocation(wday, startH, startM, endH, endM, x, y) {
+        this.schedule.setLocation(wday, startH, startM, endH, endM, x ,y);
+        await this.updateDb();
     }
 
     /**
@@ -115,6 +115,13 @@ class User {
     async addGroup(group) {
         if (!this.groups.includes(group.id)) {
             this.groups.push(group.id);
+            await this.updateDb();
+        }
+    }
+
+    async addMeeting(meeting) {
+        if (!this.meetings.includes(meeting.id)) {
+            this.meetings.push(meeting.id);
             await this.updateDb();
         }
     }

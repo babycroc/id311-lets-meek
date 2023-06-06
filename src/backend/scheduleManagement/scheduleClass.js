@@ -12,7 +12,8 @@ class Schedule {
             secondArr.push({
                 x: "",
                 y: "",
-                timeStamp: 0
+                timeStamp: 0,
+                meetingId: ""
             });
         }
         this.table = new Array();
