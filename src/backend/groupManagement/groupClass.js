@@ -82,7 +82,7 @@ class Group {
                 await user.addGroup();
             }
         } catch (err) {
-            console.log(err);
+            console.log("There was an error:", err);
         }
     }
 
