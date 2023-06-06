@@ -26,15 +26,21 @@ async function testMeeting(group) {
     return meeting;
 }
 
-let user = await testCreateUser();
+// let user = await testCreateUser();
 // let user = await handleLogin("test1@gmail.com", "123456");
-console.log("User logged-in with ID:", user.id);
+// console.log("User logged-in with ID:", user.id);
 
-await testSchedule(user);
-console.log("Changed the schedule");
+// await testSchedule(user);
+// console.log("Changed the schedule");
 
-let group = await testGroup(user);
-console.log("Created a new group with ID:", group.id);
+// let group = await testGroup(user);
+// console.log("Created a new group with ID:", group.id);
 
-let meeting = await testMeeting(group);
-console.log("Created a new meeting with ID:", meeting.id);
+// let meeting = await testMeeting(group);
+// console.log("Created a new meeting with ID:", meeting.id);
+
+let tmpG = await Group.getGroupById("84ny7mpusheioUUQLvWO");
+let schedule = await tmpG.getGroupSchedule();
+console.log("Monday", schedule.table[0]);
+console.log("Tuesday", schedule.table[1]);
+console.log("Wednesday", schedule.table[2]);

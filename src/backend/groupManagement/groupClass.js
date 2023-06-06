@@ -2,6 +2,7 @@ import { User } from "../accountManagement/userClass.js";
 import { db } from "../firebase/firebase.js";
 import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
 import { Meeting } from "../meetingManagement/meetingClass.js";
+import { Schedule } from "../scheduleManagement/scheduleClass.js";
 
 /**
  * This class represents a group of users.
@@ -102,8 +103,19 @@ class Group {
         }
     }
 
+    /**
+     * Return a Schedule object with available time for group meeting.
+     * This ensures the available time is not conflict with user's schedule.
+     * @returns {Schedule}
+     */
     async getGroupSchedule() {
-        
+        let groupSchedule = new Schedule();
+        const curTimestamp = Date.now();
+        for (let i=0; i<this.users.length; i++) {
+            let user = await User.getUserById(this.users[i]);
+            groupSchedule.parseSchedule(user.schedule, curTimestamp);
+        }
+        return groupSchedule;
     }
 }
 

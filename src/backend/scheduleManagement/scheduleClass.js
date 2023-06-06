@@ -9,19 +9,18 @@ class Schedule {
      * @returns {Schedule}
      */
     constructor() {
-        let secondArr = new Array();
-        for (let j=0; j < 48; j++) {
-            secondArr.push({
-                x: "",
-                y: "",
-                timeStamp: 0,
-                meetingId: ""
-            });
-        }
         this.table = new Array();
         for (let i = 0; i < 7; i++) {
-            this.table[i] = Array.from(secondArr);
-          }
+            this.table[i] = Array.from([]);
+            for (let j=0; j < 48; j++) {
+                this.table[i].push({
+                    x: "",
+                    y: "",
+                    timeStamp: 0,
+                    meetingId: ""
+                });
+            }
+        }
     }
 
     /**
@@ -127,6 +126,25 @@ class Schedule {
             // console.log(dateObj.toString());
         }
         return resTimestamp;
+    }
+
+    /**
+     * Parse a target schedule into the current schedule.
+     * @param {Schedule} schedule the schedule to parse with
+     * @param {Number} curTimestamp the timestamp to compare with
+     */
+    parseSchedule(schedule, curTimestamp) {
+        for (let i=0; i<7; i++) {
+            for (let j=0; j<48; j++)
+                if (this.table[i][j].timeStamp == 0) {
+                    if (schedule.table[i][j].timeStamp == -1) {
+                        this.table[i][j].timeStamp = -1;
+                    }
+                    if (schedule.table[i][j].timeStamp > 0 && schedule.table[i][j].timeStamp >= curTimestamp) {
+                        this.table[i][j].timeStamp = -1;
+                    }
+                }
+        }
     }
 }
 
