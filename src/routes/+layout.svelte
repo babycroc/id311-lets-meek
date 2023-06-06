@@ -18,7 +18,10 @@
   .app {
     display: flex;
     flex-direction: column;
+    align-items: center;
     min-height: 100vh;
+    max-width: 720px;
+    margin: 0 auto;
   }
 
   main {
