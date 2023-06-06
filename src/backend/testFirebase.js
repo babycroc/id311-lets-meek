@@ -16,18 +16,16 @@ import { Meeting } from "./meetingManagement/meetingClass.js";
 
 let user1 = await User.getUserById("hhHr90xtIkOSSL8bCEL4PgsjvnX2");
 console.log(user1.groups);
+console.log(user1.getAvatar());
 
 let group2 = await Group.getGroupById("fpv39zO7H0fVxsLxkNXK");
 console.log(group2.users);
 
-group2.addMember(user1);
-user1.addGroup(group2);
+// let meeting1 = await Meeting.createNewMeeting(group2, "Test meeting 1", "127", "36", 0, 1304);
+// console.log(meeting1);
 
-let meeting1 = await Meeting.createNewMeeting(group2, "Test meeting 1", "127", "36", 0, 1304);
-console.log(meeting1);
-
-let meeting2 = await Meeting.getMeetingById(meeting1.id);
-console.log(meeting2);
+// let meeting2 = await Meeting.getMeetingById(meeting1.id);
+// console.log(meeting2);
 
 async function testLogin() {
     const ref = doc(db, "users", user.user.uid).withConverter(userConverter);
