@@ -188,7 +188,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line12">line 12</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -262,6 +262,144 @@
     
 
     
+    <h4 class="name" id="addMeeting"><span class="type-signature">(async) </span>addMeeting<span class="signature">(meeting)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Add a meeting into meetings list of this group.
+Then synce with firebase.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>meeting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Meeting.html">Meeting</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an Meeting object that you want to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="addMember"><span class="type-signature">(async) </span>addMember<span class="signature">(user)</span><span class="type-signature"></span></h4>
     
 
@@ -270,7 +408,7 @@
 
 
 <div class="description">
-    Add an user into users list of this group.
+    Add an user into users list of this group. Can only add new member to group if group has NO meeting.
 Then synce with firebase.
 </div>
 
@@ -364,7 +502,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line75">line 75</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -452,7 +590,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line62">line 62</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -540,7 +678,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line55">line 55</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -679,7 +817,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line39">line 39</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -834,7 +972,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line25">line 25</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -898,13 +1036,13 @@ Then upload to firebase.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 06 2023 22:29:31 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 06 2023 23:35:26 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

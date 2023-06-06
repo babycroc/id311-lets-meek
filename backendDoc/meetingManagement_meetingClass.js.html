@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: meetingManagement/meetingClass.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: meetingManagement/meetingClass.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { User } from "../accountManagement/userClass.js";
+import { db } from "../firebase/firebase.js";
+import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore"; 
+import { Group } from "../groupManagement/groupClass.js";
+
+/**
+ * This class represents a meeting.
+ * @param {String} id firebase id of meeting
+ * @param {String} name name of the meeting
+ * @param {String} groupId ID of the group that meeting belongs to
+ * @param {String} x x-coordinate of meeting's location
+ * @param {String} y y-coordinate of meeting's location
+ * @param {Number} startTime starting time of the meeting
+ * @param {Number} endTime ending time of the meeting
+ * @returns {Meeting}
+ */
+class Meeting {
+    constructor(id, name, groupId, x, y, startTime, endTime) {
+        this.id = id;
+        this.ref = doc(db, "meetings", id).withConverter(meetingConverter);
+        this.name = name;
+        this.groupId = groupId;
+        this.x = x;
+        this.y = y;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Get a meeting from firebase with given firebase meetingId.
+     * @param {String} meetingId the firebase group ID that you want to get from Firebase
+     * @returns {Meeting}
+     */
+    static async getMeetingById(meetingId) {
+        const docRef = doc(db, "meetings", meetingId).withConverter(meetingConverter);
+        let docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) return null;
+        return docSnap.data();
+    }
+
+    /**
+     * Create a new meeting. Group ID will be automatically assigned to meeting.groupId,
+     * and meeting ID will also be added to meetings array of the group.
+     * Then upload to firebase.
+     * @param {Group} group the user who creates the group
+     * @param {String} name name of the meeting
+     * @param {String} x x-coordinate of meeting's location
+     * @param {String} y y-coordinate of meeting's location
+     * @param {Number} startTime starting time of the meeting
+     * @param {Number} endTime ending time of the meeting
+     * @returns {Meeting}
+     */
+    static async createNewMeeting(group, name, x, y, startTime, endTime) {
+        const docRef = await addDoc(collection(db, "meetings"), {
+            id: "",
+            name: name,
+            groupId: group.id,
+            x: x,
+            y: y,
+            startTime: startTime,
+            endTime: endTime
+        });
+        let newMeeting = new Meeting(docRef.id, name, group.id, x, y,startTime, endTime);
+        await newMeeting.updateDb();
+        await group.addMeeting(newMeeting);
+        return newMeeting;
+    }
+
+    /**
+     * Upload current Meeting object to firebase.
+     */
+    async updateDb() {
+        await setDoc(this.ref, this, { merge: false });
+    }
+
+    /**
+     * Fetch current meeting's data from the firebase to this Meeting object.
+     */
+    async fetchDb() {
+        let docSnap = await getDoc(this.ref);
+        let getMeeting = docSnap.data();
+        this.groupId = getMeeting.groupId;
+        this.name = getMeeting.name;
+        this.x = getMeeting.x;
+        this.y = getMeeting.y;
+        this.startTime = getMeeting.startTime;
+        this.endTime = getMeeting.endTime;
+        return this;
+    }
+
+    /**
+     * Set a name for current meeting.
+     * Then synce with firebase.
+     * @param {String} name the name to be set
+     */
+    async setName(name) {
+        this.name = name;
+        await this.updateDb();
+    }
+}
+
+export const meetingConverter = {
+    toFirestore: (meeting) => {
+        return {
+            id: meeting.id,
+            name: meeting.name,
+            groupId: meeting.groupId,
+            x: meeting.x,
+            y: meeting.y,
+            startTime: meeting.startTime,
+            endTime: meeting.endTime,
+            };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Meeting(data.id, data.name, data.groupId, data.x, data.y, data.startTime, data.endTime);
+    }
+};
+
+export {Meeting};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 06 2023 23:35:26 GMT+0900 (Korean Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

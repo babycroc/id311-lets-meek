@@ -1,6 +1,7 @@
 import { User } from "../accountManagement/userClass.js";
 import { db } from "../firebase/firebase.js";
-import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
+import { Meeting } from "../meetingManagement/meetingClass.js";
 
 /**
  * This class represents a group of users.
@@ -68,13 +69,31 @@ class Group {
     }
 
     /**
-     * Add an user into users list of this group.
+     * Add an user into users list of this group. Can only add new member to group if group has NO meeting.
      * Then synce with firebase.
      * @param {User} user an Group object that you want to add
      */
     async addMember(user) {
-        if (!this.users.includes(user.id)) {
-            this.users.push(user.id);
+        try {
+            if (this.meetings.length > 0) throw "fail to add member since this group already has meetings!"
+            if (!this.users.includes(user.id)) {
+                this.users.push(user.id);
+                await this.updateDb();
+                await user.addGroup();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    /**
+     * Add a meeting into meetings list of this group.
+     * Then synce with firebase.
+     * @param {Meeting} meeting an Meeting object that you want to add
+     */
+    async addMeeting(meeting) {
+        if (!this.meetings.includes(meeting.id)) {
+            this.meetings.push(meeting.id);
             await this.updateDb();
         }
     }
@@ -86,7 +105,7 @@ export const groupConverter = {
             users: group.users,
             meetings: group.meetings,
             id: group.id
-            };
+        };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
@@ -94,4 +113,4 @@ export const groupConverter = {
     }
 };
 
-export {Group};
+export { Group };

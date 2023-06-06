@@ -112,11 +112,6 @@ class User {
         return this.schedule.table;
     }
 
-    /**
-     * Add a new group into groups list of this user.
-     * Then synce with firebase.
-     * @param {Group} group an Group object that you want to add
-     */
     async addGroup(group) {
         if (!this.groups.includes(group.id)) {
             this.groups.push(group.id);
