@@ -1,7 +1,9 @@
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
 import { db } from "../firebase/firebase.js";
 import { doc, setDoc, getDoc } from "firebase/firestore"; 
+import { AvatarGenerator } from "random-avatar-generator";
 
+const generator = new AvatarGenerator();
 class User {
     constructor(email, id, groups, schedule, meetings) {
         this.email = email;
@@ -22,6 +24,10 @@ class User {
     async updateDb() {
         const ref = doc(db, "users", this.id).withConverter(userConverter);
         await setDoc(ref, this, { merge: false });
+    }
+
+    getAvatar() {
+        return generator.generateRandomAvatar(this.id);
     }
 }
 
