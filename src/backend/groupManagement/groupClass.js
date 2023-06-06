@@ -75,12 +75,11 @@ class Group {
      */
     async addMember(user) {
         try {
+            if (this.users.includes(user.id)) return;
             if (this.meetings.length > 0) throw "fail to add member since this group already has meetings!"
-            if (!this.users.includes(user.id)) {
-                this.users.push(user.id);
-                await this.updateDb();
-                await user.addGroup();
-            }
+            this.users.push(user.id);
+            await this.updateDb();
+            await user.addGroup();
         } catch (err) {
             console.log("There was an error:", err);
         }
