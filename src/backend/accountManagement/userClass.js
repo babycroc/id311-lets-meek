@@ -14,12 +14,21 @@ class User {
         this.meetings = meetings;
     }
 
+    static async getUserById(userId) {
+        const docRef = doc(db, "users", userId).withConverter(userConverter);
+        let docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) return null;
+        return docSnap.data();
+    }
+
     addNewFixedFrame(wday, startH, startM, endH, endM) {
         this.schedule.addNewFixedFrame(wday, startH, startM, endH, endM);
+        this.updateDb();
     }
 
     addNewLocation(wday, startH, startM, endH, endM, x, y) {
         this.schedule.addNewLocation(wday, startH, startM, endH, endM, x ,y);
+        this.updateDb();
     }
 
     async updateDb() {
@@ -37,7 +46,6 @@ class User {
     }
 
     async createNewUser() {
-        let dataToSetToStore;
         const docSnap = await getDoc(this.ref);
         if (!docSnap.exists()) {
             await setDoc(this.ref, this, { merge: false });
@@ -51,6 +59,11 @@ class User {
 
     getSchedule() {
         return this.schedule.table;
+    }
+
+    async addGroup(group) {
+        this.groups.push(group.id);
+        await this.updateDb();
     }
 }
 

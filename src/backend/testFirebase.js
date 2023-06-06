@@ -3,12 +3,21 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { User, userConverter } from "./accountManagement/userClass.js";
 import { db } from "./firebase/firebase.js";
 import { Schedule } from "./scheduleManagement/scheduleClass.js";
+import { Group } from "./groupManagement/groupClass.js";
 
-let createUser = await handleRegister("test1@gmail.com", "123456", "123456");
-console.log(createUser);
+// let createUser = await handleRegister("test1@gmail.com", "123456", "123456");
+// console.log(createUser);
 
 // let user = await handleLogin("quangnguyenonetv@gmail.com", "123456");
-// console.log(user.getSchedule()[0]);
+// console.log(user.id);
+// let group1 = await Group.createNewGroup(user);
+// console.log(group1);
+
+// let user1 = await User.getUserById("izH9swonLBX4K0JsZkM5cqm38Ku2");
+// console.log(user1);
+
+let group2 = await Group.getGroupById("fpv39zO7H0fVxsLxkNXK");
+console.log(group2);
 
 async function testLogin() {
     const ref = doc(db, "users", user.user.uid).withConverter(userConverter);
