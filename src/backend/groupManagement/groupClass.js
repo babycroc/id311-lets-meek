@@ -73,8 +73,10 @@ class Group {
      * @param {User} user an Group object that you want to add
      */
     async addMember(user) {
-        this.users.push(user.id);
-        await this.updateDb();
+        if (!this.users.includes(user.id)) {
+            this.users.push(user.id);
+            await this.updateDb();
+        }
     }
 }
 
