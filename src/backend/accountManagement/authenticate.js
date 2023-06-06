@@ -19,6 +19,13 @@ const authHandlers = {
     }
 }
 
+/**
+ * Async function to create a new user with given email and password.
+ * @param {String} email
+ * @param {String} password
+ * @param {String} confirmPass
+ * @returns {User}
+ */
 export async function handleRegister(email, password, confirmPass) {
     try {
         if (!email || !password || !confirmPass || password != confirmPass) {
@@ -34,6 +41,12 @@ export async function handleRegister(email, password, confirmPass) {
     }
 }
 
+/**
+ * Async function to login with given email and password.
+ * @param {String} email
+ * @param {String} password
+ * @returns {User}
+ */
 export async function handleLogin(email, password) {
     try {
         if (!email || !password) {
@@ -48,6 +61,9 @@ export async function handleLogin(email, password) {
     }
 }
 
+/**
+ * Async function to logout.
+ */
 export async function handleLogout() {
     try {
         await authHandlers.logout(email, password);
