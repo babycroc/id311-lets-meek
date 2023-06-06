@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { auth, db } from "../firebase/firebase.js";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { writable } from "svelte/store";
+import { User } from "./userClass.js";
+import { Schedule } from "../scheduleManagement/scheduleClass.js";
 
 const authHandlers = {
     // @ts-ignore
@@ -22,7 +24,11 @@ export async function handleRegister(email, password, confirmPass) {
         if (!email || !password || !confirmPass || password != confirmPass) {
             throw "email or password is not valid!"
         }
-        return await authHandlers.signup(email, password);
+        // return await authHandlers.signup(email, password);
+        let userCred = await authHandlers.signup(email, password);
+        let user = new User(userCred.user.email, userCred.user.uid, [], new Schedule(), []);
+        await user.createNewUser();
+        return user;
     } catch(err) {
         console.log("There was a register error: ", err);
     }
@@ -33,7 +39,10 @@ export async function handleLogin(email, password) {
         if (!email || !password) {
             throw "email or password is not valid!"
         }
-        return await authHandlers.login(email, password);
+        let userCred = await authHandlers.login(email, password);
+        let user = new User(userCred.user.email, userCred.user.uid);
+        await user.fetchDb();
+        return user;
     } catch(err) {
         console.log("There was a login error: ", err);
     }

@@ -5,9 +5,10 @@ import { AvatarGenerator } from "random-avatar-generator";
 
 const generator = new AvatarGenerator();
 class User {
-    constructor(email, id, groups, schedule, meetings) {
-        this.email = email;
+    constructor(email, id, groups = [], schedule = [], meetings = []) {
         this.id = id;
+        this.ref = doc(db, "users", id).withConverter(userConverter);
+        this.email = email;
         this.groups = groups;
         this.schedule = schedule;
         this.meetings = meetings;
@@ -22,12 +23,34 @@ class User {
     }
 
     async updateDb() {
-        const ref = doc(db, "users", this.id).withConverter(userConverter);
-        await setDoc(ref, this, { merge: false });
+        await setDoc(this.ref, this, { merge: false });
+    }
+
+    async fetchDb() {
+        let docSnap = await getDoc(this.ref);
+        let getUser = docSnap.data();
+        this.email = getUser.email;
+        this.groups = getUser.groups;
+        this.schedule = getUser.schedule;
+        this.meetings = getUser.meetings;
+        return this;
+    }
+
+    async createNewUser() {
+        let dataToSetToStore;
+        const docSnap = await getDoc(this.ref);
+        if (!docSnap.exists()) {
+            await setDoc(this.ref, this, { merge: false });
+        }
+        await this.fetchDb();
     }
 
     getAvatar() {
         return generator.generateRandomAvatar(this.id);
+    }
+
+    getSchedule() {
+        return this.schedule.table;
     }
 }
 

@@ -1,11 +1,14 @@
-import { handleLogin } from "./accountManagement/authenticate.js";
+import { handleLogin, handleLogout, handleRegister } from "./accountManagement/authenticate.js";
 import { doc, setDoc, getDoc } from "firebase/firestore"; 
 import { User, userConverter } from "./accountManagement/userClass.js";
 import { db } from "./firebase/firebase.js";
 import { Schedule } from "./scheduleManagement/scheduleClass.js";
 
-let user = await handleLogin("quangnguyenonetv@gmail.com", "123456");
-console.log(user.user.uid);
+let createUser = await handleRegister("test1@gmail.com", "123456", "123456");
+console.log(createUser);
+
+// let user = await handleLogin("quangnguyenonetv@gmail.com", "123456");
+// console.log(user.getSchedule()[0]);
 
 async function testLogin() {
     const ref = doc(db, "users", user.user.uid).withConverter(userConverter);
@@ -34,4 +37,4 @@ async function testUser() {
 
 // testLogin();
 // testSchedule();
-testUser();
+// testUser();
