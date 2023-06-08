@@ -104,6 +104,162 @@
     
 
     
+    <h4 class="name" id="getAutoComplete"><span class="type-signature"></span>getAutoComplete<span class="signature">(text)</span><span class="type-signature"> &rarr; {Array({name, placeId, x, y})}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Async function, take a text as input, return an array of place suggestions for the input.
+Each element in the array is a object with four fields: {name, placeId, x, y}.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the text string that you want to get the suggestion</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map_mapAPI.js.html">map/mapAPI.js</a>, <a href="map_mapAPI.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array({name, placeId, x, y})</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="handleLogin"><span class="type-signature"></span>handleLogin<span class="signature">(email, password)</span><span class="type-signature"> &rarr; {<a href="User.html">User</a>}</span></h4>
     
 
@@ -566,6 +722,208 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="kakaoGetTraveltime"><span class="type-signature"></span>kakaoGetTraveltime<span class="signature">(origins, destX, destY)</span><span class="type-signature"> &rarr; {Array({result_code, result_msg, key, summary})}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Async function take an array of origins and a destionation coordinate x, y.
+Return an array of distance and duration to travel from origins to destination.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origins</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of {x, y, key}</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>destX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">x-coordinate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>destY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">y-coordinate</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map_mapAPI.js.html">map/mapAPI.js</a>, <a href="map_mapAPI.js.html#line76">line 76</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array({result_code, result_msg, key, summary})</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -581,13 +939,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAutoComplete">getAutoComplete</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li><li><a href="global.html#kakaoGetTraveltime">kakaoGetTraveltime</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 07 2023 04:50:25 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 08 2023 22:37:35 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
