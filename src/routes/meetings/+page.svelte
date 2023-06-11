@@ -10,7 +10,7 @@
   <title>Meetings</title>
 </svelte:head>
 
-<AddButton position="bottom" onClick={addMeeting} />
+<AddButton fixed onClick={addMeeting} />
 
 <style>
 </style>
