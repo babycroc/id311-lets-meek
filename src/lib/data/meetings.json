@@ -10,5 +10,29 @@
     "startTime": 1686585600000,
     "x": "127",
     "y": "36"
+  },
+  {
+    "id": "VS684Juqqk2InTD3KYnr",
+    "colEnd": 4,
+    "colStart": 2,
+    "endTime": 1686589200000,
+    "groupId": "84ny7mpusheioUUQLvWO",
+    "name": "Test meeting 2",
+    "row": 1,
+    "startTime": 1686585600000,
+    "x": "127",
+    "y": "36"
+  },
+  {
+    "id": "VS684Juqqk2InTD3KYnr",
+    "colEnd": 4,
+    "colStart": 2,
+    "endTime": 1686589200000,
+    "groupId": "QqMA28GfKmvbzXphNNpY",
+    "name": "Test meeting 3",
+    "row": 1,
+    "startTime": 1686585600000,
+    "x": "127",
+    "y": "36"
   }
 ]

@@ -1,9 +1,10 @@
 <script lang="ts">
   import AddButton from "./AddButton.svelte";
   import Card from "./Card.svelte";
+  import type { Color, Group } from "../types";
 
-  export let group: string;
-  export let color: { background: string; main: string; hover: string };
+  export let group: Group;
+  export let color: Color;
 
   const createMeeting = () => {
     console.log("Create Meeting!");
@@ -11,7 +12,7 @@
 </script>
 
 <Card background={color.background} border={color.main}>
-  <p>{group}</p>
+  <p>{group.name}</p>
   <div class="right-align">
     <AddButton
       color="white"

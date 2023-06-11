@@ -3,25 +3,11 @@
   import AddButton from "../../lib/components/AddButton.svelte";
 
   import groupData from "../../lib/data/groups.json";
+  import colorData from "../../lib/data/colors.json";
+  import type { Color, Group } from "$lib/types";
 
-  const colors: { background: string; main: string; hover: string }[] = [
-    {
-      background: "var(--light-purple)",
-      main: "var(--purple)",
-      hover: "var(--hover-purple)",
-    },
-    {
-      background: "var(--light-blue)",
-      main: "var(--blue)",
-      hover: "var(--hover-blue)",
-    },
-    {
-      background: "var(--light-orange)",
-      main: "var(--orange)",
-      hover: "var(--hover-orange)",
-    },
-  ];
-  const groups: string[] = groupData.map((group) => group.name);
+  const colors: Color[] = colorData;
+  const groups: Group[] = groupData;
 
   const addGroup = () => {
     console.log("Add Group!");
