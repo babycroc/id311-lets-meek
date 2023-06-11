@@ -17,8 +17,10 @@
       color="white"
       background={color.main}
       hover={color.hover}
-      onClick={createMeeting}>Create Meeting</AddButton
+      onClick={createMeeting}
     >
+      Create Meeting
+    </AddButton>
   </div>
 </Card>
 

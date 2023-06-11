@@ -2,6 +2,8 @@
   import GroupCard from "$lib/components/GroupCard.svelte";
   import AddButton from "../../lib/components/AddButton.svelte";
 
+  import groupData from "../../lib/data/groups.json";
+
   const colors: { background: string; main: string; hover: string }[] = [
     {
       background: "var(--light-purple)",
@@ -19,11 +21,7 @@
       hover: "var(--hover-orange)",
     },
   ];
-  const groups: string[] = [
-    "Software Prototyping",
-    "Interaction Prototyping",
-    "Interaction Product Design",
-  ];
+  const groups: string[] = groupData.map((group) => group.name);
 
   const addGroup = () => {
     console.log("Add Group!");
