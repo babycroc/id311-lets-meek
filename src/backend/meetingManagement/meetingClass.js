@@ -1,8 +1,9 @@
 import { User } from "../accountManagement/userClass.js";
 import { db } from "../firebase/firebase.js";
-import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, addDoc, collection, onSnapshot } from "firebase/firestore"; 
 import { Group } from "../groupManagement/groupClass.js";
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
+import { Place } from "../map/placeClass.js";
 
 /**
  * This class represents a meeting.
@@ -11,6 +12,7 @@ import { Schedule } from "../scheduleManagement/scheduleClass.js";
  * @param {String} groupId ID of the group that meeting belongs to
  * @param {String} x x-coordinate of meeting's location
  * @param {String} y y-coordinate of meeting's location
+ * @param {Array(String)} places array contain placeId and a keyword "quiet" or "moderate" or "loud"
  * @param {Number} startTime starting time of the meeting
  * @param {Number} endTime ending time of the meeting
  * @param {Number} row the row index of the schedule table
@@ -19,23 +21,22 @@ import { Schedule } from "../scheduleManagement/scheduleClass.js";
  * @returns {Meeting}
  */
 class Meeting {
-    constructor(id, name, groupId, x, y, startTime, endTime, row, colStart, colEnd) {
+    constructor(id, name, groupId, places, startTime, endTime, row, colStart, colEnd) {
         this.id = id;
         this.ref = doc(db, "meetings", id).withConverter(meetingConverter);
         this.name = name;
         this.groupId = groupId;
-        this.x = x;
-        this.y = y;
         this.startTime = startTime;
         this.endTime = endTime;
         this.row = row;
         this.colStart = colStart;
         this.colEnd = colEnd;
+        this.places = places;
     }
 
     /**
      * Get a meeting from firebase with given firebase meetingId.
-     * @param {String} meetingId the firebase group ID that you want to get from Firebase
+     * @param {String} meetingId the firebase meeting ID that you want to get from Firebase
      * @returns {Meeting}
      */
     static async getMeetingById(meetingId) {
@@ -61,7 +62,7 @@ class Meeting {
      * @param {Number} endM ending minute of the meeting
      * @returns {Meeting}
      */
-    static async createNewMeeting(group, name, x, y, wday, startH, startM, endH, endM) {
+    static async createNewMeeting(group, name, places, wday, startH, startM, endH, endM) {
         let [row1, col1] = Schedule.timeToIndex(wday, startH, startM);
         let [row2, col2] = Schedule.timeToIndex(wday, endH, endM);
         let startTime = Schedule.computeTimestamp(wday, startH, startM);
@@ -70,15 +71,14 @@ class Meeting {
             id: "",
             name: name,
             groupId: group.id,
-            x: x,
-            y: y,
+            places: places,
             startTime: startTime,
             endTime: endTime,
             row: row1,
             colStart: col1,
             colEnd: col2
         });
-        let newMeeting = new Meeting(docRef.id, name, group.id, x, y, startTime, endTime, row1, col1, col2);
+        let newMeeting = new Meeting(docRef.id, name, group.id, places, startTime, endTime, row1, col1, col2);
         await newMeeting.updateDb();
         await group.addMeeting(newMeeting);
         return newMeeting;
@@ -99,8 +99,7 @@ class Meeting {
         let getMeeting = docSnap.data();
         this.groupId = getMeeting.groupId;
         this.name = getMeeting.name;
-        this.x = getMeeting.x;
-        this.y = getMeeting.y;
+        this.places = getMeeting.places;
         this.startTime = getMeeting.startTime;
         this.endTime = getMeeting.endTime;
         this.colEnd = getMeeting.colEnd;
@@ -118,6 +117,39 @@ class Meeting {
         this.name = name;
         await this.updateDb();
     }
+
+    /**
+     * Start listening to any changes from the firebase, and automatically fetch to the current object.
+     */
+    listenToChange() {
+        this.unsub = onSnapshot(this.ref, (docSnap) => {
+            let getMeeting = docSnap.data();
+            this.groupId = getMeeting.groupId;
+            this.name = getMeeting.name;
+            this.places = getMeeting.places;
+            this.startTime = getMeeting.startTime;
+            this.endTime = getMeeting.endTime;
+            this.colEnd = getMeeting.colEnd;
+            this.colStart = getMeeting.colStart;
+            this.row = getMeeting.row;
+        });
+    }
+
+    /**
+     * Stop listening.
+     */
+    stopListen() {
+        this.unsub();
+    }
+
+    /**
+     * Get location of the meeting
+     * @returns {Object(x, y)}
+     */
+    async getMeetingLocation() {
+        let place = await Place.getPlaceById(this.places[0]);
+        return place.location;
+    }
 }
 
 export const meetingConverter = {
@@ -126,8 +158,7 @@ export const meetingConverter = {
             id: meeting.id,
             name: meeting.name,
             groupId: meeting.groupId,
-            x: meeting.x,
-            y: meeting.y,
+            places: meeting.places,
             startTime: meeting.startTime,
             endTime: meeting.endTime,
             row: meeting.row,
@@ -137,7 +168,7 @@ export const meetingConverter = {
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Meeting(data.id, data.name, data.groupId, data.x, data.y, data.startTime, data.endTime, data.row, data.colStart, data.colEnd);
+        return new Meeting(data.id, data.name, data.groupId, data.places, data.startTime, data.endTime, data.row, data.colStart, data.colEnd);
     }
 };
 

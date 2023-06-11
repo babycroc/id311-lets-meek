@@ -1,6 +1,6 @@
 import { User } from "../accountManagement/userClass.js";
 import { db } from "../firebase/firebase.js";
-import { doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, collection, query, orderBy, limit, getDocs, onSnapshot } from "firebase/firestore";
 import { Meeting } from "../meetingManagement/meetingClass.js";
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
 
@@ -12,11 +12,12 @@ import { Schedule } from "../scheduleManagement/scheduleClass.js";
  * @returns {Group}
  */
 class Group {
-    constructor(id, users, meetings) {
+    constructor(id, users, meetings, invite) {
         this.id = id;
         this.ref = doc(db, "groups", id).withConverter(groupConverter);
         this.users = users;
         this.meetings = meetings;
+        this.invite = invite;
     }
 
     /**
@@ -39,13 +40,26 @@ class Group {
      * @returns {Group}
      */
     static async createNewGroup(user) {
+        // generate invitation code
+        const groupRef = collection(db, "groups");
+        const q = query(groupRef, orderBy("invite", "desc"), limit(1));
+        const querySnapshot = await getDocs(q);
+        let inviteCode = "1";
+        querySnapshot.forEach((doc) => {
+            inviteCode = (parseInt(doc.data().invite) + 1).toString();
+            console.log(doc.id, " => ", doc.data());
+        });
+        let tmp="";
+        for (let i = 0; i<(6-inviteCode.length); i++) tmp+="0";
+        inviteCode = tmp + inviteCode;
         // Add a new document with a generated id.
         const docRef = await addDoc(collection(db, "groups"), {
             id: "",
             users: [user.id],
-            meetings: []
+            meetings: [],
+            invite: inviteCode
         });
-        let newGroup = new Group(docRef.id, [user.id], []);
+        let newGroup = new Group(docRef.id, [user.id], [], inviteCode);
         await user.addGroup(newGroup);
         await newGroup.updateDb();
         return newGroup;
@@ -66,6 +80,7 @@ class Group {
         let getGroup = docSnap.data();
         this.users = getGroup.users;
         this.meetings = getGroup.meetings;
+        this.invite = getGroup.invite;
         return this;
     }
 
@@ -117,6 +132,25 @@ class Group {
         }
         return groupSchedule;
     }
+
+    /**
+     * Start listening to any changes from the firebase, and automatically fetch to the current object.
+     */
+    listenToChange() {
+        this.unsub = onSnapshot(this.ref, (docSnap) => {
+            let getGroup = docSnap.data();
+            this.users = getGroup.users;
+            this.meetings = getGroup.meetings;
+            this.invite = getGroup.invite;
+        });
+    }
+
+    /**
+     * Stop listening.
+     */
+    stopListen() {
+        this.unsub();
+    }
 }
 
 export const groupConverter = {
@@ -124,12 +158,13 @@ export const groupConverter = {
         return {
             users: group.users,
             meetings: group.meetings,
-            id: group.id
+            id: group.id,
+            invite: group.invite
         };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Group(data.id, data.users, data.meetings);
+        return new Group(data.id, data.users, data.meetings, data.invite);
     }
 };
 

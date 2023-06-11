@@ -1,6 +1,6 @@
 import { Schedule } from "../scheduleManagement/scheduleClass.js";
 import { db } from "../firebase/firebase.js";
-import { doc, setDoc, getDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, collection, query, where, getDocs, onSnapshot } from "firebase/firestore"; 
 import { AvatarGenerator } from "random-avatar-generator";
 import { Group } from "../groupManagement/groupClass.js";
 
@@ -125,6 +125,58 @@ class User {
             this.schedule.addMeetingToSchedule(meeting);
             await this.updateDb();
         }
+    }
+
+    /**
+     * Join a group by invitation code. Return true if join successfully, otherwise return false.
+     * @param {String} inviteCode the invitation code
+     * @returns {Boolean}
+     */
+    async joinGroupByCode(inviteCode) {
+        const groupRef = collection(db, "groups");
+        const q = query(groupRef, where("invite", "==", inviteCode));
+        const querySnapshot = await getDocs(q);
+        let id = "";
+        querySnapshot.forEach((doc) => {
+            id = doc.id;
+        });
+        if (id.length) {
+            let group = await Group.getGroupById(id);
+            await group.addMember(this);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Set the default location for a user
+     * @param {String} x x-coordinate
+     * @param {String} y y-coordinate
+     */
+    setDefaultLocation(x, y) {
+        this.schedule.setDefaultLocation(x,y);
+        this.updateDb();
+    }
+
+    /**
+     * Start listening to any changes from the firebase, and automatically fetch to the current object.
+     */
+    listenToChange() {
+        this.unsub = onSnapshot(this.ref, (docSnap) => {
+            let getUser = docSnap.data();
+            this.email = getUser.email;
+            this.groups = getUser.groups;
+            this.schedule = getUser.schedule;
+            this.meetings = getUser.meetings;
+        });
+    }
+
+    /**
+     * Stop listening.
+     */
+    stopListen() {
+        this.unsub();
     }
 }
 

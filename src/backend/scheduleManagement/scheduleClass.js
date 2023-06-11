@@ -23,6 +23,15 @@ class Schedule {
         }
     }
 
+    setDefaultLocation(x, y) {
+        for (let i = 0; i < 7; i++) {
+            for (let j=0; j < 48; j++) {
+                this.table[i][j].x = x;
+                this.table[i][j].y = y;
+            }
+        }
+    }
+
     /**
      * Convert a timeframe to index of Schedule.table.
      * @param {String} weekday a string of weekday: "Monday", "Tuesday"...
@@ -106,8 +115,6 @@ class Schedule {
         const colEnd = meeting.colEnd;
         for (let i=colStart; i<colEnd; i++) {
             this.table[row][i].timeStamp = meeting.endTime;
-            this.table[row][i].x = meeting.x;
-            this.table[row][i].y = meeting.y;
             this.table[row][i].meetingId = meeting.id;
         }
     }
