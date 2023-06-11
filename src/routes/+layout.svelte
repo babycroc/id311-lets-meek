@@ -22,14 +22,14 @@
 </div>
 
 <style>
-  .app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    max-width: 720px;
-    margin: 0 auto;
-  }
+	.app {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-height: 100vh;
+		max-width: 720px;
+		margin: 0 auto;
+	}
 
   main {
     flex: 1;

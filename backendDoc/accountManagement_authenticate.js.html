@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: accountManagement/authenticate.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: accountManagement/authenticate.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth, db } from "../firebase/firebase.js";
+import { getDoc, doc, setDoc } from "firebase/firestore";
+import { writable } from "svelte/store";
+import { User } from "./userClass.js";
+import { Schedule } from "../scheduleManagement/scheduleClass.js";
+
+const authHandlers = {
+    // @ts-ignore
+    signup: async (email, pass) => {
+        return await createUserWithEmailAndPassword(auth, email, pass)
+    },
+    // @ts-ignore
+    login: async (email, pass) => {
+        return await signInWithEmailAndPassword(auth, email, pass);
+    },
+    logout: async () => {
+        await signOut(auth)
+    }
+}
+
+/**
+ * Async function to create a new user with given email and password.
+ * @param {String} email
+ * @param {String} password
+ * @param {String} confirmPass
+ * @returns {User}
+ */
+export async function handleRegister(email, password, confirmPass) {
+    try {
+        if (!email || !password || !confirmPass || password != confirmPass) {
+            throw "email or password is not valid!"
+        }
+        // return await authHandlers.signup(email, password);
+        let userCred = await authHandlers.signup(email, password);
+        let user = new User(userCred.user.email, userCred.user.uid, [], new Schedule(), []);
+        await user.createNewUser();
+        return user;
+    } catch(err) {
+        console.log("There was a register error: ", err);
+    }
+}
+
+/**
+ * Async function to login with given email and password.
+ * @param {String} email
+ * @param {String} password
+ * @returns {User}
+ */
+export async function handleLogin(email, password) {
+    try {
+        if (!email || !password) {
+            throw "email or password is not valid!"
+        }
+        let userCred = await authHandlers.login(email, password);
+        let user = new User(userCred.user.email, userCred.user.uid);
+        await user.fetchDb();
+        return user;
+    } catch(err) {
+        console.log("There was a login error: ", err);
+    }
+}
+
+/**
+ * Async function to logout.
+ */
+export async function handleLogout() {
+    try {
+        await authHandlers.logout(email, password);
+    } catch(err) {
+        console.log("There was a logout error: ", err);
+    }
+}
+
+export const authStore = writable({ // to keep the logged-in user data
+    user: null,
+    loading: true,
+    data: {}
+})
+
+// check user state change to create account or login and store into the database
+// if user not logged-in, it will redirect to
+export async function onUserStateChanged() {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+
+        if (!user) {
+            return;
+        }
+
+        // @ts-ignore
+        let dataToSetToStore;
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) {
+            console.log("Creating User");
+            const userRef = doc(db, "users", user.uid); // create user.uid doc within "users" collection
+            dataToSetToStore = { // data to store in the doc userRef
+                email: user.email,
+                todos: [],
+            };
+            await setDoc(userRef, dataToSetToStore, { merge: true });
+        } else {
+            console.log("Fetching User");
+            const userData = docSnap.data();
+            dataToSetToStore = userData;
+        }
+
+        // @ts-ignore
+        authStore.update((curr) => { // store the logged-in user data
+            return {
+                ...curr,
+                user,
+                // @ts-ignore
+                data: dataToSetToStore,
+                loading: false,
+            };
+        });
+        console.log(authStore);
+    });
+    return unsubscribe;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Place.html">Place</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAutoComplete">getAutoComplete</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li><li><a href="global.html#kakaoGetTraveltime">kakaoGetTraveltime</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jun 11 2023 15:53:53 GMT+0900 (Korean Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
