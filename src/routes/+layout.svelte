@@ -6,7 +6,7 @@
   import "../app.postcss";
 
   const formatTitle = (text: string) => {
-    return text[0].toUpperCase() + text.slice(1);
+    return text ? text[0].toUpperCase() + text.slice(1) : "";
   };
   const title: string = formatTitle($page.url.pathname.slice(1).split("/")[0]);
 </script>
