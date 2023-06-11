@@ -22,22 +22,21 @@
 </div>
 
 <style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		min-height: 100vh;
-		max-width: 720px;
-		margin: 0 auto;
-	}
-
-  main {
-    flex: 1;
+  .app {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  main {
     padding: 24px;
     width: 100%;
-    max-width: 64rem;
+    height: calc(100vh - 120px);
     margin: 0 auto;
+    overflow-y: scroll;
+    background-color: white;
   }
 </style>
