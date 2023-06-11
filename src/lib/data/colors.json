@@ -1,0 +1,17 @@
+[
+  {
+    "background": "var(--light-purple)",
+    "main": "var(--purple)",
+    "hover": "var(--hover-purple)"
+  },
+  {
+    "background": "var(--light-blue)",
+    "main": "var(--blue)",
+    "hover": "var(--hover-blue)"
+  },
+  {
+    "background": "var(--light-orange)",
+    "main": "var(--orange)",
+    "hover": "var(--hover-orange)"
+  }
+]

@@ -9,6 +9,7 @@ vite.config.js.timestamp-*
 /packages/package/test/**/package
 /documentation/types.js
 .env
+.env.local
 .vercel_build_output
 .svelte-kit
 .cloudflare

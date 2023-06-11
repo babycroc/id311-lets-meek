@@ -1,0 +1,20 @@
+[
+  {
+    "id": "84ny7mpusheioUUQLvWO",
+    "name": "Software Prototyping",
+    "meetings": ["VS684Juqqk2InTD3KYnr"],
+    "users": ["HCFRvR4x18bo1TleR9VbXXoOTZk1"]
+  },
+  {
+    "id": "QqMA28GfKmvbzXphNNpY",
+    "name": "Interaction Prototyping",
+    "meetings": [],
+    "users": ["8yilkS6GLFXra95hHVM3NdlnS293", "HCFRvR4x18bo1TleR9VbXXoOTZk1"]
+  },
+  {
+    "id": "",
+    "name": "Interaction Product Design",
+    "meetings": [],
+    "users": []
+  }
+]

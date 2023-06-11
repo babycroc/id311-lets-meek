@@ -1,18 +1,24 @@
-<script>
-	import { page } from "$app/stores";
-	import Navigator from "../lib/components/Navigator.svelte";
-	import Schedule from "./+page.svelte";
-	import "./styles.css";
-	import "../app.postcss";
+<script lang="ts">
+  import { page } from "$app/stores";
+  import Header from "$lib/components/Header.svelte";
+  import Navigator from "../lib/components/Navigator.svelte";
+  import "./styles.css";
+  import "../app.postcss";
+
+  const formatTitle = (text: string) => {
+    return text[0].toUpperCase() + text.slice(1);
+  };
+  const title: string = formatTitle($page.url.pathname.slice(1));
 </script>
 
 <div class="app">
-	<main>
-		<slot />
-	</main>
-	{#if $page.url.pathname !== "/" && $page.url.pathname !== "/login"}
-		<Navigator />
-	{/if}
+  <Header {title} />
+  <main>
+    <slot />
+  </main>
+  {#if $page.url.pathname !== "/" && $page.url.pathname !== "/login"}
+    <Navigator />
+  {/if}
 </div>
 
 <style>
@@ -25,14 +31,13 @@
 		margin: 0 auto;
 	}
 
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 100%;
+    max-width: 64rem;
+    margin: 0 auto;
+  }
 </style>
