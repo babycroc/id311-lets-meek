@@ -23,7 +23,6 @@
             } else {
                 user = await handleRegister(email, password, confirmPass);
             }
-			authenticating = false;
 			console.log("This is the user:", user.id);
         } catch (err) {
             console.log("There was an authentication error", err);
@@ -43,7 +42,7 @@
 
 <div class="authContainer">
     <form>
-        <h1>{register ? "Register" : "Login"}</h1>
+        <h1>{register ? "Sign Up" : "Login"}</h1>
         {#if error}
             <p class="error">The information you have entered is not correct</p>
         {/if}
@@ -73,10 +72,10 @@
             {/if}
 		</button>
     </form>
-	<div class="form-control w-52 flex-1">
+	<div class="form-control w-52">
 		<label class="cursor-pointer label">
-		  <span class="label-text">Do you want to sign up?</span> 
-		  <input on:click={changeRegister} type="checkbox" class="toggle toggle-secondary" checked />
+		  <span class="label-text">Don't have account? Sign up</span> 
+		  <input on:click={changeRegister} type="checkbox" class="toggle toggle-primary" />
 		</label>
 	  </div>
 </div>
