@@ -4,15 +4,19 @@
 
   import groupData from "../data/groups.json";
   import colorData from "../data/colors.json";
-  import type { Color, GroupType, Meeting } from "../types";
+  import type { Color } from "../types";
   import { formatTime } from "../utils";
   import type { Group } from "../../backend/groupManagement/groupClass.js";
+  import type { Meeting } from "../../backend/meetingManagement/meetingClass";
 
   export let meeting: Meeting;
 
-  const groupIdx: number = groupData.findIndex(
-    (group: Group) => group.id == meeting.groupId
-  );
+  // const groupIdx: number = groupData.findIndex(
+  //   (group: Group) => group.id == meeting.groupId
+  // );
+
+  const groupIdx: number = localStorage.getItem(meeting.groupId);
+
   console.log(groupIdx);
   const color: Color = colorData[groupIdx];
 </script>

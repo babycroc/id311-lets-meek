@@ -18,9 +18,12 @@
     userId = localStorage.getItem("userID");
     user = await User.getUserById(userId);
     let tmpList = new Array();
+    let colorCode = 0;
     for (let groupId of user.groups) {
       let group = await Group.getGroupById(groupId);
       tmpList.push(group);
+      localStorage.setItem(group.id, colorCode.toString());
+      colorCode = (colorCode + 1) % colors.length;
     }
     groups = tmpList;
   });
