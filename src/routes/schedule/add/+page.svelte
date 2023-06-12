@@ -19,7 +19,7 @@
 <h1 class="text-xl text-left">Place:</h1>
 <Map
   center={{ lat: 36.3742791, lng: 127.3603806 }}
-  zoom={20}
+  zoom={16}
   --height="400px"
 />
 
