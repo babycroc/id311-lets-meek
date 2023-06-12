@@ -25,6 +25,7 @@
     return `${hour}:${minute}`;
   }
 
+<<<<<<< HEAD
   function selectCell(i, j) {
     if (i > 0) {
       schedule[i][j] = !schedule[i][j];
@@ -38,6 +39,36 @@
       schedule[i][j] = !schedule[i][j];
     }
   }
+=======
+	function selectCell(i, j) {
+		if (i > 0 && (selectedColumn === null || selectedColumn === j)) {
+			schedule[i][j] = !schedule[i][j];
+			isCellSelected = schedule.some((day) => day.some((cell) => cell));
+
+			if (!isCellSelected) {
+				selectedColumn = null;
+			} else {
+				selectedColumn = j;
+			}
+		}
+	}
+
+	function dragCell(i, j, e) {
+		if (
+			e.buttons > 0 &&
+			(selectedColumn === null || j === selectedColumn)
+		) {
+			schedule[i][j] = !schedule[i][j];
+			isCellSelected = schedule.some((day) => day.some((cell) => cell));
+
+			if (!isCellSelected) {
+				selectedColumn = null;
+			} else {
+				selectedColumn = j;
+			}
+		}
+	}
+>>>>>>> main
 </script>
 
 <svelte:head>
