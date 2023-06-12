@@ -3,9 +3,28 @@
   import AddButton from "../../lib/components/AddButton.svelte";
 
   import meetingData from "../../lib/data/meetings.json";
-  import type { Meeting } from "../../lib/types";
+  // import type { Meeting } from "../../lib/types";
+  import { onMount } from "svelte";
+  import { User } from "../../backend/accountManagement/userClass.js";
+  import { Group } from "../../backend/groupManagement/groupClass.js";
+  import { Meeting } from "../../backend/meetingManagement/meetingClass";
 
-  const meetings: Meeting[] = meetingData;
+  let meetings: Meeting[] = new Array();
+  let userId;
+  let user: User;
+  onMount(async () => {
+    userId = localStorage.getItem("userID");
+    user = await User.getUserById(userId);
+    let tmpList = new Array();
+    for (let meetingId of user.meetings) {
+      let meeting = await Meeting.getMeetingById(meetingId);
+      tmpList.push(meeting);
+    }
+    meetings = tmpList;
+    console.log(meetings);
+  });
+
+  // const meetings: Meeting[] = meetingData;
 
   const addMeeting = () => {
     console.log("Add Meeting!");

@@ -18,7 +18,7 @@ async function testSchedule(user) {
 }
 
 async function testGroup(user) {
-    let group = await Group.createNewGroup(user);
+    let group = await Group.createNewGroup(user, "Test 1");
     return group;
 }
 
@@ -75,7 +75,7 @@ user3.addNewFixedFrame("Friday", 4, 0, 6, 0); // Friday, 4am - 6am
 user3.setLocation("Friday", 4, 0, 6, 0, "127.3621369", "36.3730399");
 
 // Test group
-// let group1 = await Group.createNewGroup(user1);
+// let group1 = await Group.createNewGroup(user1, "Test 1");
 let group1 = await Group.getGroupById("OTJMuGfqTFKW1kFEwtVs");
 group1.listenToChange();
 user2.joinGroupByCode(group1.invite);
