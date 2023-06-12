@@ -1,12 +1,17 @@
 <script>
   import { onMount } from "svelte";
   import { Loader } from "@googlemaps/js-api-loader";
-  import { PUBLIC_GOOGLE_API_KEY } from "$env/static/public";
+  import {
+    PUBLIC_GOOGLE_API_KEY,
+    PUBLIC_GOOGLE_MAP_ID,
+  } from "$env/static/public";
 
   // import mapMarker from "../images/map_marker.png";
 
   export let center;
   export let zoom;
+
+  console.log(PUBLIC_GOOGLE_API_KEY, PUBLIC_GOOGLE_MAP_ID);
 
   export const initMap = () => {
     const loader = new Loader({
@@ -20,7 +25,7 @@
             center: center,
             zoom: zoom,
             disableDefaultUI: true,
-            mapId: "7846b9913cb0a6e9",
+            mapId: PUBLIC_GOOGLE_MAP_ID,
           })
       );
 
