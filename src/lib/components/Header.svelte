@@ -1,8 +1,9 @@
 <script lang="ts">
-  export let title: String;
+  export let title: string;
+  export let user: any;
 </script>
 
-<div class="custom-header">{title}</div>
+<div class="custom-header">{title} / {user?.email}</div>
 
 <style>
   .custom-header {

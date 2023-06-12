@@ -9,7 +9,7 @@
   let error = false; // whether show the error or not
   let register = false; // checking register screen or login screen
   let authenticating = false;
-  let user;
+  export let user;
 
   async function handleAuthenticate() {
     if (authenticating) {
@@ -27,7 +27,11 @@
         user = await handleRegister(email, password, confirmPass);
       }
       console.log("This is the user:", user.id);
-      if (user) window.location.href = "/groups";
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("userID", user.id);
+        window.location.href = "/groups";
+      }
     } catch (err) {
       console.log("There was an authentication error", err);
       error = true;
