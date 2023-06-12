@@ -15,7 +15,7 @@
   <p>{group.name}</p>
   <div class="right-align">
     <AddButton
-      color="white"
+      color={color.name}
       background={color.main}
       hover={color.hover}
       onClick={createMeeting}

@@ -1,15 +1,18 @@
 [
   {
+    "name": "purple",
     "background": "var(--light-purple)",
     "main": "var(--purple)",
     "hover": "var(--hover-purple)"
   },
   {
+    "name": "blue",
     "background": "var(--light-blue)",
     "main": "var(--blue)",
     "hover": "var(--hover-blue)"
   },
   {
+    "name": "orange",
     "background": "var(--light-orange)",
     "main": "var(--orange)",
     "hover": "var(--hover-orange)"

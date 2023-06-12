@@ -14,6 +14,10 @@ const config = {
         mytheme: {
           primary: "#7e22ce",
           "base-100": "#ffffff",
+          purple: "#7e22ce",
+          blue: "#1d4ed8",
+          orange: "#c2410c",
+          red: "#b91c1c",
         },
       },
     ],
