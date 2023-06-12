@@ -1,9 +1,9 @@
 /* Write your global styles here, in PostCSS syntax */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 :root {
   --purple: #7e22ce;
@@ -15,16 +15,25 @@
   --orange: #c2410c;
   --light-orange: #ffedd5;
   --hover-orange: #fed7aa;
+  --red: #b91c1c;
+  --light-red: #fee2e2;
+  --hover-red: #fecaca;
 
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Spoqa Han Sans Neo";
+  font-family: "Lato", sans-serif;
 }
 
 .list-container {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
   gap: 16px;
 }
 

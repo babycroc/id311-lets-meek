@@ -15,7 +15,7 @@
 
 <div class="app">
 	<Header {title} />
-	<main>
+	<main class="list-container">
 		<slot />
 	</main>
 	{#if $page.url.pathname !== "/" && $page.url.pathname !== "/login"}

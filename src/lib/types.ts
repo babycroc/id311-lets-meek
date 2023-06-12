@@ -1,4 +1,5 @@
 export interface Color {
+  name: string;
   background: string;
   main: string;
   hover: string;
