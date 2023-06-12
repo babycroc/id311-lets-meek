@@ -32,6 +32,6 @@
 <style>
   #map {
     width: 100%;
-    height: 500px;
+    height: var(--height, 400px);
   }
 </style>

@@ -5,6 +5,7 @@
   import groupData from "../data/groups.json";
   import colorData from "../data/colors.json";
   import type { Color, Group, Meeting } from "../types";
+  import { formatTime } from "../utils";
 
   export let meeting: Meeting;
 
@@ -13,13 +14,6 @@
   );
   console.log(groupIdx);
   const color: Color = colorData[groupIdx];
-
-  const formatTime = (colIdx: number) => {
-    const hours = ("0" + (Math.floor(colIdx / 2) % 12)).slice(-2);
-    const minutes = colIdx % 2 == 0 ? "00" : "30";
-    const apm = Math.floor(colIdx / 2) < 12 ? "AM" : "PM";
-    return hours + ":" + minutes + apm;
-  };
 </script>
 
 <Card background={color.background} border={color.main}>

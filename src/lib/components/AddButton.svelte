@@ -3,6 +3,7 @@
   // import AddIcon from "../icons/AddIcon.svelte";
 
   export let color: string = "purple";
+  const bgColor = "bg-" + color + "-700";
   // export let background: string = "var(--light-purple)";
   // export let hover: string = "var(--hover-purple)";
   export let fixed: boolean = false;
@@ -21,7 +22,9 @@
 </Button> -->
 
 <button
-  class="text-xl btn btn-circle bg-{color}-700 {fixed ? 'fixed-button' : ''}"
+  class="text-xl btn btn-circle {fixed
+    ? 'fixed-button btn-primary'
+    : 'btn-outline'}"
   on:click={onClick}>+</button
 >
 
