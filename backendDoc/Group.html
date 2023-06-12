@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Group<span class="signature">(id, users, meetings)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Group<span class="signature">(id, users, meetings, invite, name)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h2>
         
             <div class="class-description">This class represents a group of users.</div>
         
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Group"><span class="type-signature"></span>new Group<span class="signature">(id, users, meetings)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h4>
+    <h4 class="name" id="Group"><span class="type-signature"></span>new Group<span class="signature">(id, users, meetings, invite, name)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h4>
     
 
     
@@ -114,7 +114,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array(String)</span>
+<span class="param-type">Array</span>
 
 
             
@@ -137,7 +137,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array(String)</span>
+<span class="param-type">Array</span>
 
 
             
@@ -148,6 +148,52 @@
             
 
             <td class="description last">a list of firebase meetingId</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>invite</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the invitation code of the group</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">name of the group</td>
         </tr>
 
     
@@ -188,7 +234,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line14">line 14</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -365,7 +411,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line110">line 110</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -503,7 +549,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line92">line 92</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line98">line 98</a>
     </li></ul></dd>
     
 
@@ -591,7 +637,7 @@ Then synce with firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line78">line 78</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -680,7 +726,7 @@ This ensures the available time is not conflict with user's schedule.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line126">line 126</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -786,7 +832,7 @@ This ensures the available time is not conflict with user's schedule.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line139">line 139</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -874,7 +920,7 @@ This ensures the available time is not conflict with user's schedule.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line151">line 151</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line158">line 158</a>
     </li></ul></dd>
     
 
@@ -962,7 +1008,7 @@ This ensures the available time is not conflict with user's schedule.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line71">line 71</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -998,7 +1044,7 @@ This ensures the available time is not conflict with user's schedule.
     
 
     
-    <h4 class="name" id=".createNewGroup"><span class="type-signature">(async, static) </span>createNewGroup<span class="signature">(user)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h4>
+    <h4 class="name" id=".createNewGroup"><span class="type-signature">(async, static) </span>createNewGroup<span class="signature">(user, name)</span><span class="type-signature"> &rarr; {<a href="Group.html">Group</a>}</span></h4>
     
 
     
@@ -1064,6 +1110,29 @@ Then upload to firebase.
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">name for the new group</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1101,7 +1170,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line42">line 42</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -1256,7 +1325,7 @@ Then upload to firebase.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line28">line 28</a>
+        <a href="groupManagement_groupClass.js.html">groupManagement/groupClass.js</a>, <a href="groupManagement_groupClass.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -1326,7 +1395,7 @@ Then upload to firebase.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jun 11 2023 15:53:53 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 13 2023 06:05:52 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
