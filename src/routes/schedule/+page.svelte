@@ -1,148 +1,137 @@
 <script>
-	import AddButton from "../../lib/components/AddButton.svelte";
+  import AddButton from "../../lib/components/AddButton.svelte";
+  import { User } from "../../backend/accountManagement/userClass";
+  import { onMount } from "svelte";
 
-	let schedule = new Array(48)
-		.fill(false)
-		.map(() => new Array(7).fill(false));
+  let currentSchedule;
+  let schedule = new Array(48).fill(false).map(() => new Array(7).fill(false));
+  onMount(async () => {
+    await User.getUserById(localStorage.getItem("userID")).then((data) => {
+      currentSchedule = data.schedule.table;
+      schedule = currentSchedule;
+    });
+  });
 
-	let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-	let isCellSelected = false;
-	let selectedColumn = null;
+  let isCellSelected = false;
+  let selectedColumn = null;
 
-	function getTime(i) {
-		let hour = Math.floor(i / 2);
-		let minute = (i % 2) * 30;
-		hour = hour < 10 ? `0${hour}` : hour;
-		minute = minute < 10 ? `0${minute}` : minute;
-		return `${hour}:${minute}`;
-	}
+  function getTime(i) {
+    let hour = Math.floor(i / 2);
+    let minute = (i % 2) * 30;
+    hour = hour < 10 ? `0${hour}` : hour;
+    minute = minute < 10 ? `0${minute}` : minute;
+    return `${hour}:${minute}`;
+  }
 
-	function selectCell(i, j) {
-		if (i > 0 && (selectedColumn === null || selectedColumn === j)) {
-			schedule[i][j] = !schedule[i][j];
-			isCellSelected = schedule.some((day) => day.some((cell) => cell));
+  function selectCell(i, j) {
+    if (i > 0) {
+      schedule[i][j] = !schedule[i][j];
+      isCellSelected = schedule.some((day) => day.some((cell) => cell));
+      selectedColumn = j;
+    }
+  }
 
-			if (!isCellSelected) {
-				selectedColumn = null;
-			} else {
-				selectedColumn = j;
-			}
-		}
-	}
-
-	function dragCell(i, j, e) {
-		if (
-			e.buttons > 0 &&
-			(selectedColumn === null || j === selectedColumn)
-		) {
-			schedule[i][j] = !schedule[i][j];
-			isCellSelected = schedule.some((day) => day.some((cell) => cell));
-
-			if (!isCellSelected) {
-				selectedColumn = null;
-			} else {
-				selectedColumn = j;
-			}
-		}
-	}
+  function dragCell(i, j, e) {
+    if (e.buttons > 0 && j === selectedColumn) {
+      schedule[i][j] = !schedule[i][j];
+    }
+  }
 </script>
 
 <svelte:head>
-	<title>Schedule</title>
+  <title>Schedule</title>
 </svelte:head>
 
 <section>
-	<table>
-		<tr>
-			<td class="empty-cell" />
+  <table>
+    <tr>
+      <td class="empty-cell" />
 
-			{#each days as day (day)}
-				<td class="day">{day}</td>
-			{/each}
-		</tr>
+      {#each days as day (day)}
+        <td class="day">{day}</td>
+      {/each}
+    </tr>
 
-		{#each schedule as hours, i (i)}
-			<tr>
-				<td class="time">{getTime(i)}</td>
+    {#each schedule as hours, i (i)}
+      <tr>
+        <td class="time">{getTime(i)}</td>
 
-				{#each hours as hour, j (j)}
-					<td
-						class="hour {schedule[i][j] ? 'selected' : ''}"
-						on:mousedown={() => selectCell(i, j)}
-						on:mouseenter={(e) => dragCell(i, j, e)}
-					/>
-				{/each}
-			</tr>
-		{/each}
-	</table>
-	{#if isCellSelected}
-		<AddButton
-			fixed
-			onClick={() => (window.location.href = "/schedule/add")}
-		/>
-	{/if}
+        {#each hours as hour, j (j)}
+          <td
+            class="hour {schedule[i][j] ? 'selected' : ''}"
+            on:mousedown={() => selectCell(i, j)}
+            on:mouseenter={(e) => dragCell(i, j, e)}
+          />
+        {/each}
+      </tr>
+    {/each}
+  </table>
+  {#if isCellSelected}
+    <AddButton fixed onClick={() => (window.location.href = "/schedule/add")} />
+  {/if}
 </section>
 
 <style>
-	table {
-		border-collapse: collapse;
-	}
+  table {
+    border-collapse: collapse;
+  }
 
-	.empty-cell {
-		width: 50px;
-		border: 1px solid #ddd;
-	}
+  .empty-cell {
+    width: 50px;
+    border: 1px solid #ddd;
+  }
 
-	.day {
-		text-align: center;
-		font-weight: bold;
-		height: 20px;
-		border: 1px solid #ddd;
-	}
+  .day {
+    text-align: center;
+    font-weight: bold;
+    height: 20px;
+    border: 1px solid #ddd;
+  }
 
-	.time {
-		text-align: right;
-		font-weight: normal;
-		border: 1px solid #ddd;
-		font-size: 12px;
-		height: 20px;
-	}
+  .time {
+    text-align: right;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    height: 20px;
+  }
 
-	.hour {
-		cursor: pointer;
-		user-select: none;
-		width: 100px;
-		height: 20px;
-		border: 1px solid #ddd;
-	}
+  .hour {
+    cursor: pointer;
+    user-select: none;
+    width: 100px;
+    height: 20px;
+    border: 1px solid #ddd;
+  }
 
-	.hour.selected {
-		background-color: var(--purple);
-	}
+  .hour.selected {
+    background-color: var(--purple);
+  }
 
-	.btn-circle {
-		border: none;
-		color: white;
-		background-color: var(--purple);
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-		text-align: center;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 20px auto;
-		cursor: pointer;
-	}
+  .btn-circle {
+    border: none;
+    color: white;
+    background-color: var(--purple);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    cursor: pointer;
+  }
 
-	.day {
-		text-align: center;
-		font-weight: bold;
-		height: 20px;
-		border: 1px solid #ddd;
-		position: sticky;
-		top: 0;
-		background-color: #fff;
-	}
+  .day {
+    text-align: center;
+    font-weight: bold;
+    height: 20px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+  }
 </style>
