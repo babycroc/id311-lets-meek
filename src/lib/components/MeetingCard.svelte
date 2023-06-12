@@ -4,8 +4,9 @@
 
   import groupData from "../data/groups.json";
   import colorData from "../data/colors.json";
-  import type { Color, Group, Meeting } from "../types";
+  import type { Color, GroupType, Meeting } from "../types";
   import { formatTime } from "../utils";
+  import type { Group } from "../../backend/groupManagement/groupClass.js";
 
   export let meeting: Meeting;
 

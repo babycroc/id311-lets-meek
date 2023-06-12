@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scheduleManagement/scheduleClass.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scheduleManagement/scheduleClass.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Meeting } from "../meetingManagement/meetingClass.js";
+
+/**
+ * This class contains a 2d array that stores the timetable for each user.
+ */
+class Schedule {
+    /**
+     * Description
+     * @returns {Schedule}
+     */
+    constructor() {
+        this.table = new Array();
+        for (let i = 0; i &lt; 7; i++) {
+            this.table[i] = Array.from([]);
+            for (let j=0; j &lt; 48; j++) {
+                this.table[i].push({
+                    x: "",
+                    y: "",
+                    timeStamp: 0,
+                    meetingId: ""
+                });
+            }
+        }
+    }
+
+    setDefaultLocation(x, y) {
+        for (let i = 0; i &lt; 7; i++) {
+            for (let j=0; j &lt; 48; j++) {
+                this.table[i][j].x = x;
+                this.table[i][j].y = y;
+            }
+        }
+    }
+
+    /**
+     * Convert a timeframe to index of Schedule.table.
+     * @param {String} weekday a string of weekday: "Monday", "Tuesday"...
+     * @param {Number} hour hour: from 0 to 23
+     * @param {Number} minute minute: from 0 to 59
+     * @returns {Array(firstIndex, secondIndex)}
+     */
+    static timeToIndex(weekday, hour, minute) {
+        let row, col;
+        if (weekday == "Monday") col = 0;
+        if (weekday == "Tuesday") col = 1;
+        if (weekday == "Wednesday") col = 2;
+        if (weekday == "Thursday") col = 3;
+        if (weekday == "Friday") col = 4;
+        if (weekday == "Saturday") col = 5;
+        if (weekday == "Sunday") col = 6;
+        row = Math.floor((hour*60 + minute) / 30);
+        return [col, row];
+    }
+    
+    /**
+     * Convert the index of schedule.table to an array of [Weekday, hour, minune].
+     * @param {Number} row row index
+     * @param {Number} col column index
+     * @returns {Array(Weekday, hour, minune)}
+     */
+    static indexToTime(row, col) {
+        try {
+            if (row &lt; 0 || row > 6) throw "Index out of range!";
+            const wd = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const minute = (col*30) % 60;
+            const hour = Math.floor((col*30) / 60);
+            return [wd[row], hour, minute];
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    /**
+     * Add a timeframe to timetable as fixed-schedule. The timestamp will be set to -1.
+     * @param {String} wday a string of weekday: "Monday", "Tuesday"...
+     * @param {Number} startH start hour: from 0 to 23
+     * @param {Number} startM start minute: from 0 to 59
+     * @param {Number} endH end hour: from 0 to 23
+     * @param {Number} endM end minute: from 0 to 59
+     */
+    addNewFixedFrame(wday, startH, startM, endH, endM) {
+        let [x1, y1] = Schedule.timeToIndex(wday, startH, startM);
+        let [x2, y2] = Schedule.timeToIndex(wday, endH, endM);
+        for (let i=y1; i&lt;y2; i++) {
+            this.table[x1][i].timeStamp = -1;
+        }
+    }
+
+    /**
+     * Set a location for a timeframe to timetable.
+     * @param {String} wday a string of weekday: "Monday", "Tuesday"...
+     * @param {Number} startH start hour: from 0 to 23
+     * @param {Number} startM start minute: from 0 to 59
+     * @param {Number} endH end hour: from 0 to 23
+     * @param {Number} endM end minute: from 0 to 59
+     * @param {String} x x-coordinate for the location during this timeframe
+     * @param {String} y y-coordinate for the location during this timeframe
+     */
+    setLocation(wday, startH, startM, endH, endM, x, y) {
+        let [x1, y1] = Schedule.timeToIndex(wday, startH, startM);
+        let [x2, y2] = Schedule.timeToIndex(wday, endH, endM);
+        for (let i=y1; i&lt;y2; i++) {
+            this.table[x1][i].x = x;
+            this.table[x1][i].y = y;
+        }
+    }
+
+    /**
+     * Add a meeting timeframe to timetable. The timestamp will be set as endTime of the meeting
+     * @param {Meeting} meeting a Meeting object that you need to add
+     */
+    addMeetingToSchedule(meeting) {
+        const row = meeting.row;
+        const colStart = meeting.colStart;
+        const colEnd = meeting.colEnd;
+        for (let i=colStart; i&lt;colEnd; i++) {
+            this.table[row][i].timeStamp = meeting.endTime;
+            this.table[row][i].meetingId = meeting.id;
+        }
+    }
+
+    /**
+     * Convert a weekday and time to an integer timestamp by comparing with current timestamp.
+     * @param {String} weekday
+     * @param {Number} hour
+     * @param {Number} minute
+     * @returns {Number}
+     */
+    static computeTimestamp(weekday, hour, minute) {
+        let dateObj = new Date();
+        let currentWeekday = dateObj.getDay();
+        if (currentWeekday>0) currentWeekday--;
+        else currentWeekday = 6;
+        let [targetWeekday, targetHour] = Schedule.timeToIndex(weekday, hour, minute);
+        
+        let resTimestamp = 0;
+        dateObj.setHours(hour, minute, 0, 0);
+        if (targetWeekday &lt;= currentWeekday) {
+            resTimestamp = dateObj.getTime() + (6-currentWeekday)*86400000 + (targetWeekday+1)*86400000;
+            // dateObj.setTime(resTimestamp);
+            // console.log(dateObj.toString());
+        } else {
+            resTimestamp = dateObj.getTime() + (targetWeekday-currentWeekday)*86400000;
+            // dateObj.setTime(resTimestamp);
+            // console.log(dateObj.toString());
+        }
+        return resTimestamp;
+    }
+
+    /**
+     * Parse a target schedule into the current schedule.
+     * @param {Schedule} schedule the schedule to parse with
+     * @param {Number} curTimestamp the timestamp to compare with
+     */
+    parseSchedule(schedule, curTimestamp) {
+        for (let i=0; i&lt;7; i++) {
+            for (let j=0; j&lt;48; j++)
+                if (this.table[i][j].timeStamp == 0) {
+                    if (schedule.table[i][j].timeStamp == -1) {
+                        this.table[i][j].timeStamp = -1;
+                    }
+                    if (schedule.table[i][j].timeStamp > 0 &amp;&amp; schedule.table[i][j].timeStamp >= curTimestamp) {
+                        this.table[i][j].timeStamp = -1;
+                    }
+                }
+        }
+    }
+}
+
+export {Schedule};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Group.html">Group</a></li><li><a href="Meeting.html">Meeting</a></li><li><a href="Place.html">Place</a></li><li><a href="Schedule.html">Schedule</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getAutoComplete">getAutoComplete</a></li><li><a href="global.html#handleLogin">handleLogin</a></li><li><a href="global.html#handleLogout">handleLogout</a></li><li><a href="global.html#handleRegister">handleRegister</a></li><li><a href="global.html#kakaoGetTraveltime">kakaoGetTraveltime</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 13 2023 04:58:05 GMT+0900 (Korean Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
