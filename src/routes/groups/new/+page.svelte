@@ -86,7 +86,7 @@
       <button class="btn btn-outline w-full" on:click={handleClick}
         >Create</button
       >
-      <p>{createGroupMsg}</p>
+      <p class="error">{createGroupMsg}</p>
     {/if}
   </div>
 </div>

@@ -20,6 +20,7 @@
 <Map
   center={{ lat: 36.3742791, lng: 127.3603806 }}
   zoom={16}
+  marker={true}
   --height="400px"
 />
 
