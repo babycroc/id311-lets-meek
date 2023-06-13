@@ -234,7 +234,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line18">line 18</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -360,7 +360,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line167">line 167</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line194">line 194</a>
     </li></ul></dd>
     
 
@@ -448,7 +448,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line54">line 54</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -554,7 +554,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line43">line 43</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -660,7 +660,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line32">line 32</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -766,7 +766,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line180">line 180</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line207">line 207</a>
     </li></ul></dd>
     
 
@@ -854,7 +854,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line193">line 193</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line220">line 220</a>
     </li></ul></dd>
     
 
@@ -942,7 +942,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line160">line 160</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -978,7 +978,7 @@
     
 
     
-    <h4 class="name" id=".findSuggestedPlacesForGroup"><span class="type-signature">(async, static) </span>findSuggestedPlacesForGroup<span class="signature">(group, weekdayIndex, startTimeIndex)</span><span class="type-signature"> &rarr; {Array(Place)}</span></h4>
+    <h4 class="name" id=".findSuggestedPlacesForGroup"><span class="type-signature">(async, static) </span>findSuggestedPlacesForGroup<span class="signature">(group, wday, startH, startM)</span><span class="type-signature"> &rarr; {Array(Place)}</span></h4>
     
 
     
@@ -1045,13 +1045,13 @@
 
         <tr>
             
-                <td class="name"><code>weekdayIndex</code></td>
+                <td class="name"><code>wday</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">String</span>
 
 
             
@@ -1061,14 +1061,14 @@
 
             
 
-            <td class="description last">the index that converted from weekday</td>
+            <td class="description last">the day of the week</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>startTimeIndex</code></td>
+                <td class="name"><code>startH</code></td>
             
 
             <td class="type">
@@ -1084,7 +1084,30 @@
 
             
 
-            <td class="description last">the index that converted from the startTime of the meeting</td>
+            <td class="description last">the start hour of the meeting</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the start minute of the meeting</td>
         </tr>
 
     
@@ -1125,7 +1148,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line93">line 93</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -1231,7 +1254,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line77">line 77</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -1386,7 +1409,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line66">line 66</a>
+        <a href="map_placeClass.js.html">map/placeClass.js</a>, <a href="map_placeClass.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -1456,7 +1479,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 13 2023 06:05:52 GMT+0900 (Korean Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 14 2023 06:21:08 GMT+0900 (Korean Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

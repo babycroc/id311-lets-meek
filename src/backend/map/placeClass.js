@@ -93,8 +93,9 @@ class Place {
   /**
    * This function provides an array of three suggessted places of quiet, moderate and loud for a group.
    * @param {Group} group the group that you need generate the suggestion
-   * @param {Number} weekdayIndex the index that converted from weekday
-   * @param {Number} startTimeIndex the index that converted from the startTime of the meeting
+   * @param {String} wday the day of the week
+   * @param {Number} startH the start hour of the meeting
+   * @param {Number} startM the start minute of the meeting
    * @returns {Array(Place)}
    */
   static async findSuggestedPlacesForGroup(group, wday, startH, startM) {
