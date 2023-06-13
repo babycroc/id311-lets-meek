@@ -15,7 +15,8 @@
   //   (group: Group) => group.id == meeting.groupId
   // );
 
-  const groupIdx: number = localStorage.getItem(meeting.groupId);
+  // const groupIdx: number = localStorage.getItem(meeting.groupId);
+  const groupIdx: number = sessionStorage.getItem(meeting.groupId);
 
   console.log(groupIdx);
   const color: Color = colorData[groupIdx];

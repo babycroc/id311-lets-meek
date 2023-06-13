@@ -12,11 +12,12 @@
   let userID;
   onMount(async () => {
     // user = JSON.parse(localStorage.getItem("user"));
-    userID = localStorage.getItem("userID");
+    // userID = localStorage.getItem("userID");
+    userID = sessionStorage.getItem("userID");
     if (userID) {
       await User.getUserById(userID).then((data) => {
         user = data;
-        console.log("User info: ", data);
+        console.log("From Layout - User info: ", data);
       });
     } else {
       if ($page.url.pathname !== "/login") window.location.href = "/login";

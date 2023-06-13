@@ -28,8 +28,9 @@
       }
       console.log("This is the user:", user.id);
       if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("userID", user.id);
+        // localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("userID", user.id);
+        sessionStorage.setItem("userID", user.id);
         window.location.href = "/groups";
       }
     } catch (err) {

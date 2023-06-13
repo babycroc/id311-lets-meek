@@ -9,7 +9,8 @@
 
   const createMeeting = (groupID: string) => {
     console.log("Create Meeting!");
-    localStorage.setItem("groupID", groupID);
+    // localStorage.setItem("groupID", groupID);
+    sessionStorage.setItem("groupID", groupID);
     window.location.href = "/groups/new/meeting";
   };
 </script>

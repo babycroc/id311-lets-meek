@@ -49,7 +49,8 @@
 	};
 
 	onMount(async () => {
-		await User.getUserById(localStorage.getItem("userID")).then((data) => {
+		// await User.getUserById(localStorage.getItem("userID")).then((data) => {
+		await User.getUserById(sessionStorage.getItem("userID")).then((data) => {
 			currentSchedule = data.schedule.table;
 			schedule = currentSchedule;
 			//schedule[0][0].timeStamp = -1;

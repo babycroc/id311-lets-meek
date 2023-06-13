@@ -22,7 +22,8 @@
   }
 
   onMount(async () => {
-		await User.getUserById(localStorage.getItem("userID")).then((data) => {
+		// await User.getUserById(localStorage.getItem("userID")).then((data) => {
+		await User.getUserById(sessionStorage.getItem("userID")).then((data) => {
 			user = data;
 		});
 	});

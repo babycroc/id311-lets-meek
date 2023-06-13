@@ -12,7 +12,8 @@
   let userId;
   let user: User;
   onMount(async () => {
-    userId = localStorage.getItem("userID");
+    // userId = localStorage.getItem("userID");
+    userId = sessionStorage.getItem("userID");
     user = await User.getUserById(userId);
     let tmpList = new Array();
     for (let meetingId of user.meetings) {

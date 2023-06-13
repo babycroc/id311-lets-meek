@@ -11,7 +11,8 @@
   let joinResult: boolean = true;
   let createGroupMsg: string = "";
   onMount(async () => {
-    userId = localStorage.getItem("userID");
+    // userId = localStorage.getItem("userID");
+    userId = sessionStorage.getItem("userID");
     user = await User.getUserById(userId);
   });
 
