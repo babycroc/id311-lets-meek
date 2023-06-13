@@ -98,6 +98,8 @@
             map,
             icon: "/map_marker_main.png",
           });
+          sessionStorage.setItem("scheduleX", mapMarker.getPosition().lng());
+          sessionStorage.setItem("scheduleY", mapMarker.getPosition().lat());
         });
       }
 
@@ -163,6 +165,8 @@
         console.log(data);
       });
     initMap();
+    sessionStorage.setItem("scheduleX", center.lng);
+    sessionStorage.setItem("scheduleY", center.lat);
   });
 </script>
 

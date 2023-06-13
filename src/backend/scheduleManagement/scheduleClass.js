@@ -48,7 +48,7 @@ class Schedule {
         if (weekday == "Friday") col = 4;
         if (weekday == "Saturday") col = 5;
         if (weekday == "Sunday") col = 6;
-        row = Math.floor((hour*60 + minute) / 30);
+        row = Math.floor((Number(hour)*60 + Number(minute)) / 30);
         return [col, row];
     }
     
@@ -81,6 +81,7 @@ class Schedule {
     addNewFixedFrame(wday, startH, startM, endH, endM) {
         let [x1, y1] = Schedule.timeToIndex(wday, startH, startM);
         let [x2, y2] = Schedule.timeToIndex(wday, endH, endM);
+        console.log(x1, y1, y2);
         for (let i=y1; i<y2; i++) {
             this.table[x1][i].timeStamp = -1;
         }
