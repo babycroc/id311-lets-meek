@@ -31,7 +31,7 @@
 <style>
   .fixed-button {
     position: absolute;
-    right: 16px;
+    right: 430px;
     bottom: 80px;
   }
 </style>
