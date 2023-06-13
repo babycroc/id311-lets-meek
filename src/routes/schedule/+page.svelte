@@ -29,9 +29,8 @@
 			else if (schedule[i][j].timeStamp == -2)
 				(schedule[i][j].timeStamp = 0), (state[i][j] = "empty-cell"), selectedCount--, selectedCells[j]=0;
 			if (selectedCount==0) selectedCol=-1;
-			logSelectedTimes(); // Add this line
+			// logSelectedTimes();
 		}
-		// console.log(selectedCol, selectedCount, i, j);
 		checking = checkContinuous();
 	}
 
@@ -79,6 +78,25 @@
 			else break;
 		if (count < selectedCount) return false;
 		return true;
+	}
+
+	function handleAdd() {
+		let query = "?";
+		for (let i = 0; i<48; i++)
+			if (selectedCells[i]==1) {
+				let [weekday, sHour, sMinute] = Schedule.indexToTime(selectedCol, i);
+				let tmp = `weekday=${weekday}&startHour=${sHour}&startMinute=${sMinute}`;
+				query+=tmp;
+				break;
+			}
+		for (let i = 47; i>=0; i--)
+			if (selectedCells[i]==1) {
+				let [weekday, endHour, endMinute] = Schedule.indexToTime(selectedCol, i+1);
+				let tmp = `&endHour=${endHour}&endMinute=${endMinute}`;
+				query+=tmp;
+				break;
+			}
+		window.location.href = ("/schedule/add" + query);
 	}
 </script>
 
@@ -174,7 +192,7 @@
 	</table>
 
 	{#if selectedCol >= 0 && checking}
-		<AddButton fixed onClick={() => (window.location.href = "/schedule/add")} />
+		<AddButton fixed onClick={handleAdd} />
 	{/if}
 </div>
 
