@@ -15,7 +15,8 @@
   let groupID;
   onMount(async () => {
     // user = JSON.parse(localStorage.getItem("user"));
-    groupID = localStorage.getItem("groupID");
+    // groupID = localStorage.getItem("groupID");
+    groupID = sessionStorage.getItem("groupID");
     if (groupID) {
       await Group.getGroupById(groupID).then((data) => {
         group = data;
