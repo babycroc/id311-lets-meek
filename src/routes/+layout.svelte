@@ -22,7 +22,8 @@
   });
 
   const formatTitle = (text: string) => {
-    return text[0].toUpperCase() + text.slice(1);
+    if (text) return text[0].toUpperCase() + text.slice(1);
+    else return "";
   };
   const title: string = formatTitle($page.url.pathname.slice(1).split("/")[0]);
 </script>
