@@ -3,7 +3,12 @@
   export let user: any;
 </script>
 
-<div class="custom-header">{title} / {user?.email}</div>
+<div class="custom-header">
+  {title}
+  {#if user}
+    / {user?.email}
+  {/if}
+</div>
 
 <style>
   .custom-header {

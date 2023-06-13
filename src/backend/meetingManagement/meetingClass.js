@@ -12,7 +12,7 @@ import { Place } from "../map/placeClass.js";
  * @param {String} groupId ID of the group that meeting belongs to
  * @param {String} x x-coordinate of meeting's location
  * @param {String} y y-coordinate of meeting's location
- * @param {Array(String)} places array contain placeId and a keyword "quiet" or "moderate" or "loud"
+ * @param {Array} places array contain placeId and a keyword "quiet" or "moderate" or "loud"
  * @param {Number} startTime starting time of the meeting
  * @param {Number} endTime ending time of the meeting
  * @param {Number} row the row index of the schedule table

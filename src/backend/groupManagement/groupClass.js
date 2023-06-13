@@ -7,17 +7,20 @@ import { Schedule } from "../scheduleManagement/scheduleClass.js";
 /**
  * This class represents a group of users.
  * @param {String} id firebase ID for group
- * @param {Array(String)} users a list of firebase userId whose belongs to this group
- * @param {Array(String)} meetings a list of firebase meetingId
+ * @param {Array} users a list of firebase userId whose belongs to this group
+ * @param {Array} meetings a list of firebase meetingId
+ * @param {String} invite the invitation code of the group
+ * @param {String} name name of the group
  * @returns {Group}
  */
 class Group {
-    constructor(id, users, meetings, invite) {
+    constructor(id, users, meetings, invite, name) {
         this.id = id;
         this.ref = doc(db, "groups", id).withConverter(groupConverter);
         this.users = users;
         this.meetings = meetings;
         this.invite = invite;
+        this.name = name;
     }
 
     /**
@@ -37,9 +40,10 @@ class Group {
      * and group ID will also be added to groups array of the user.
      * Then upload to firebase.
      * @param {User} user the user who creates the group
+     * @param {String} name name for the new group
      * @returns {Group}
      */
-    static async createNewGroup(user) {
+    static async createNewGroup(user, name) {
         // generate invitation code
         const groupRef = collection(db, "groups");
         const q = query(groupRef, orderBy("invite", "desc"), limit(1));
@@ -57,9 +61,10 @@ class Group {
             id: "",
             users: [user.id],
             meetings: [],
-            invite: inviteCode
+            invite: inviteCode,
+            name: name
         });
-        let newGroup = new Group(docRef.id, [user.id], [], inviteCode);
+        let newGroup = new Group(docRef.id, [user.id], [], inviteCode, name);
         await user.addGroup(newGroup);
         await newGroup.updateDb();
         return newGroup;
@@ -81,6 +86,7 @@ class Group {
         this.users = getGroup.users;
         this.meetings = getGroup.meetings;
         this.invite = getGroup.invite;
+        this.name = getGroup.name;
         return this;
     }
 
@@ -142,6 +148,7 @@ class Group {
             this.users = getGroup.users;
             this.meetings = getGroup.meetings;
             this.invite = getGroup.invite;
+            this.name = getGroup.name;
         });
     }
 
@@ -159,12 +166,13 @@ export const groupConverter = {
             users: group.users,
             meetings: group.meetings,
             id: group.id,
-            invite: group.invite
+            invite: group.invite,
+            name: group.name
         };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Group(data.id, data.users, data.meetings, data.invite);
+        return new Group(data.id, data.users, data.meetings, data.invite, data.name);
     }
 };
 

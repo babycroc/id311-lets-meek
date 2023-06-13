@@ -7,11 +7,9 @@
   export let center;
   export let zoom;
 
-  console.log(import.meta.env.VITE_GOOGLE_MAP_ID);
-
   export const initMap = () => {
     const loader = new Loader({
-      apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+      apiKey: "AIzaSyClfz_9KAgoyC0Fv22u_scyUYr5ctjeVJg", //import.meta.env.VITE_GOOGLE_API_KEY,
     });
 
     loader.load().then(async () => {
@@ -21,7 +19,7 @@
             center: center,
             zoom: zoom,
             disableDefaultUI: true,
-            mapId: import.meta.env.VITE_GOOGLE_MAP_ID,
+            mapId: "7846b9913cb0a6e9", //import.meta.env.VITE_GOOGLE_MAP_ID,
           })
       );
 
