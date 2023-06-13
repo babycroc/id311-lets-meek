@@ -4,11 +4,7 @@
   import locationStore from "$lib/stores/locationStore";
 
   let error;
-  let center;
-
-  onMount(() => {
-    center = $locationStore;
-  });
+  let center = $locationStore;;
 
   function success(position) {
     const lat = position.coords.latitude;
@@ -49,7 +45,7 @@
     </svg>
   </button>
   <div class="flex-1 w-full">
-    <Map {center} zoom={10} />
+    <Map center={center} zoom={10} />
   </div>
 </div>
 

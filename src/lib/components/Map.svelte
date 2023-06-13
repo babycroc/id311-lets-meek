@@ -7,10 +7,17 @@
   export let center;
   export let zoom;
 
-  export const initMap = () => {
-    const loader = new Loader({
-      apiKey: "AIzaSyClfz_9KAgoyC0Fv22u_scyUYr5ctjeVJg", //import.meta.env.VITE_GOOGLE_API_KEY,
-    });
+  console.log("Passed props:", center, zoom);
+
+  const initMap = () => {
+    let loader;
+    try {
+      loader = new Loader({
+        apiKey: "AIzaSyClfz_9KAgoyC0Fv22u_scyUYr5ctjeVJg", //import.meta.env.VITE_GOOGLE_API_KEY,
+      });
+    } catch (err) {
+      console.log("Error in API key:", err);
+    }
 
     loader.load().then(async () => {
       const map = await google.maps.importLibrary("maps").then(
@@ -57,9 +64,9 @@
     });
   };
 
-  // const onClick = (event) => {
-  //   console.log(event);
-  // };
+  const onClick = (event) => {
+    console.log(event);
+  };
 
   onMount(() => {
     initMap();
