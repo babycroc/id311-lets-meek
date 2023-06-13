@@ -7,8 +7,10 @@
   export let group: Group;
   export let color: Color;
 
-  const createMeeting = () => {
+  const createMeeting = (groupID: string) => {
     console.log("Create Meeting!");
+    localStorage.setItem("groupID", groupID);
+    window.location.href = "/groups/new/meeting";
   };
 </script>
 
@@ -23,7 +25,7 @@
         color={color.name}
         background={color.main}
         hover={color.hover}
-        onClick={createMeeting}
+        onClick={() => createMeeting(group.id)}
       >
         Create Meeting
       </AddButton>

@@ -125,7 +125,4 @@
     align-items: center;
     justify-content: space-between;
   }
-  .error {
-    color: var(--red);
-  }
 </style>
