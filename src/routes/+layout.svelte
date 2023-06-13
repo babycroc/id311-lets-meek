@@ -20,7 +20,7 @@
         console.log("From Layout - User info: ", data);
       });
     } else {
-      if ($page.url.pathname !== "/login") window.location.href = "/login";
+      if ($page.url.pathname !== "/login" && $page.url.pathname !== "/") window.location.href = "/login";
     }
   });
 
