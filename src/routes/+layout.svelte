@@ -18,6 +18,8 @@
         user = data;
         console.log("User info: ", data);
       });
+    } else {
+      if ($page.url.pathname !== "/login") window.location.href = "/login";
     }
   });
 
