@@ -1,7 +1,7 @@
 <script>
 	import AddButton from "../../lib/components/AddButton.svelte";
 	import { User } from "../../backend/accountManagement/userClass";
-	// import { Schedule } from "../../backend/scheduleManagement";
+	import { Schedule } from "../../backend/scheduleManagement";
 	import { onMount } from "svelte";
 	import { each } from "svelte/internal";
 
@@ -27,17 +27,11 @@
 				(schedule[i][j].timeStamp = -2), (state[i][j] = "undecided");
 			else if (schedule[i][j].timeStamp == -2)
 				(schedule[i][j].timeStamp = 0), (state[i][j] = "empty-cell");
-			isCellSelected = schedule[i].some((cell) => cell === -2);
+			logSelectedTimes(); // Add this line
+			isCellSelected = schedule[i].some((cell) => cell.timeStamp === -2);
 		}
 	}
 
-	function dragCell(i, j, e) {
-		if (e.buttons >= 0 && j >= 0) {
-			if (schedule[i][j].timeStamp == 0) schedule[i][j].timeStamp = -2;
-			else if (schedule[i][j].timeStamp == -2)
-				schedule[i][j].timeStamp = 0;
-		}
-	}
 	let isDrag = false;
 	const beginDrag = () => {
 		isDrag = true;
@@ -45,9 +39,7 @@
 	const endDrag = () => {
 		isDrag = false;
 	};
-	const toggle = (r, c) => {
-		state[r * columns.length + c] = !state[r * columns.length + c];
-	};
+
 	const mouseHandler = (r, c) => (e) => {
 		console.log(isDrag);
 		if (isDrag || e.type === "mousedown") {
@@ -66,131 +58,117 @@
 	let isCellSelected = schedule.some((day) =>
 		day.some((cell) => cell === -1)
 	);
+
+	function logSelectedTimes() {
+		for (let i = 0; i < schedule.length; i++) {
+			for (let j = 0; j < schedule[i].length; j++) {
+				if (schedule[i][j].timeStamp == -2) {
+					let [weekday, hour, minute] = Schedule.indexToTime(i, j);
+					console.log(`Day: ${weekday}, Time: ${hour}:${minute}`);
+				}
+			}
+		}
+	}
 </script>
 
 <svelte:window on:mousedown={beginDrag} on:mouseup={endDrag} />
-<section>
-	<div class="overflow-x-auto">
-		<table class="table table-xs table-pin-rows table-pin-cols">
-			<thead>
-				<tr>
-					<th />
-					{#each days as day}
-						<td>{day}</td>
-					{/each}
-					<th />
-				</tr>
-			</thead>
-
-			<tbody>
-				{#each schedule[0] as hour, j}
-					<tr>
-						<th class="prevent-select">{getTime(j)}</th>
-						{#if schedule[0][j].timeStamp != -1}
-							<td
-								class={state[0][j]}
-								on:mousedown={mouseHandler(0, j)}
-								on:mouseenter={mouseHandler(0, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[1][j].timeStamp != -1}
-							<td
-								class={state[1][j]}
-								on:mousedown={mouseHandler(1, j)}
-								on:mouseenter={mouseHandler(1, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[2][j].timeStamp != -1}
-							<td
-								class={state[2][j]}
-								on:mousedown={mouseHandler(2, j)}
-								on:mouseenter={mouseHandler(2, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[3][j].timeStamp != -1}
-							<td
-								class={state[3][j]}
-								on:mousedown={mouseHandler(3, j)}
-								on:mouseenter={mouseHandler(3, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[4][j].timeStamp != -1}
-							<td
-								class={state[4][j]}
-								on:mousedown={mouseHandler(4, j)}
-								on:mouseenter={mouseHandler(4, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[5][j].timeStamp != -1}
-							<td
-								class={state[5][j]}
-								on:mousedown={mouseHandler(5, j)}
-								on:mouseenter={mouseHandler(5, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-
-						{#if schedule[6][j].timeStamp != -1}
-							<td
-								class={state[6][j]}
-								on:mousedown={mouseHandler(6, j)}
-								on:mouseenter={mouseHandler(6, j)}
-							/>
-						{:else}
-							<td class="hour selected" />
-						{/if}
-					</tr>
-				{/each}
-			</tbody>
-
-			<!-- <tr>
-			<td class="empty-cell" />
-
-			{#each Array(48).fill(0) as _, i (i)}
-				<td class="time">{getTime(i)}</td>
-			{/each}
-		</tr>
-
-		{#each schedule as day, i (i)}
+<div>
+	<table>
+		<thead>
 			<tr>
-				<td class="day">{days[i]}</td>
-
-				{#each day as hour, j (j)}
-					<td
-						class="hour {hour === -1 ? 'selected' : ''}"
-						on:mousedown={() => {
-							selectCell(i, j), console.log(i, j);
-						}}
-						on:mouseenter={(e) => dragCell(i, j, e)}
-					/>
+				<th class="day" />
+				{#each days as day}
+					<th class="day">{day}</th>
 				{/each}
+				<th />
 			</tr>
-		{/each} -->
-		</table>
-	</div>
+		</thead>
+
+		<tbody>
+			{#each schedule[0] as hour, j}
+				<tr>
+					<th class="prevent-select">{getTime(j)}</th>
+					{#if schedule[0][j].timeStamp != -1}
+						<td
+							class={state[0][j]}
+							on:mousedown={mouseHandler(0, j)}
+							on:mouseenter={mouseHandler(0, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[1][j].timeStamp != -1}
+						<td
+							class={state[1][j]}
+							on:mousedown={mouseHandler(1, j)}
+							on:mouseenter={mouseHandler(1, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[2][j].timeStamp != -1}
+						<td
+							class={state[2][j]}
+							on:mousedown={mouseHandler(2, j)}
+							on:mouseenter={mouseHandler(2, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[3][j].timeStamp != -1}
+						<td
+							class={state[3][j]}
+							on:mousedown={mouseHandler(3, j)}
+							on:mouseenter={mouseHandler(3, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[4][j].timeStamp != -1}
+						<td
+							class={state[4][j]}
+							on:mousedown={mouseHandler(4, j)}
+							on:mouseenter={mouseHandler(4, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[5][j].timeStamp != -1}
+						<td
+							class={state[5][j]}
+							on:mousedown={mouseHandler(5, j)}
+							on:mouseenter={mouseHandler(5, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+
+					{#if schedule[6][j].timeStamp != -1}
+						<td
+							class={state[6][j]}
+							on:mousedown={mouseHandler(6, j)}
+							on:mouseenter={mouseHandler(6, j)}
+						/>
+					{:else}
+						<td class="hour selected" />
+					{/if}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+
 	{#if isCellSelected}
 		<AddButton
 			fixed
 			onClick={() => (window.location.href = "/schedule/add")}
 		/>
 	{/if}
-</section>
+</div>
 
 <style>
 	table {
@@ -204,7 +182,7 @@
 	}
 
 	.empty-cell {
-		width: 50px;
+		width: 100px;
 		border: 1px solid #ddd;
 	}
 
@@ -216,6 +194,7 @@
 	}
 
 	.time {
+		font-weight: normal;
 		text-align: right;
 		font-weight: normal;
 		border: 1px solid #ddd;
@@ -239,6 +218,13 @@
 		background-color: var(--purple);
 	}
 
+	th {
+		position: sticky;
+		top: 0;
+		background-color: #fff;
+		z-index: 1;
+	}
+
 	.btn-circle {
 		border: none;
 		color: white;
@@ -252,15 +238,5 @@
 		justify-content: center;
 		margin: 20px auto;
 		cursor: pointer;
-	}
-
-	.day {
-		text-align: center;
-		font-weight: bold;
-		height: 20px;
-		border: 1px solid #ddd;
-		position: sticky;
-		top: 0;
-		background-color: #fff;
 	}
 </style>
