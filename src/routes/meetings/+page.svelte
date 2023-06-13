@@ -1,6 +1,5 @@
 <script lang="ts">
   import MeetingCard from "$lib/components/MeetingCard.svelte";
-  import AddButton from "../../lib/components/AddButton.svelte";
 
   import meetingData from "../../lib/data/meetings.json";
   // import type { Meeting } from "../../lib/types";
@@ -23,12 +22,6 @@
     meetings = tmpList;
     console.log(meetings);
   });
-
-  // const meetings: Meeting[] = meetingData;
-
-  const addMeeting = () => {
-    console.log("Add Meeting!");
-  };
 </script>
 
 <svelte:head>
@@ -40,7 +33,6 @@
     <MeetingCard {meeting} />
   {/each}
 </div>
-<AddButton fixed onClick={addMeeting} />
 
 <style>
 </style>
