@@ -31,6 +31,8 @@
     if (groupID) {
       await Group.getGroupById(groupID).then((data) => {
         group = data;
+        console.log("GroupId:", group.id);
+        console.log("Group:", group);
       });
     }
   });
@@ -99,7 +101,7 @@
   let placeList;
   const getSuggestedPlaces = async () => {
     if (placeList) return placeList;
-
+    console.log("Quang debug:", wday, startH, startM);
     await Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
       (data) => (placeList = data)
     );
