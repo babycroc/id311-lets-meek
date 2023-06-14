@@ -19,6 +19,9 @@
   let endH: number = 4;
   let endM: number = 0;
 
+  let lat="";
+  let lon="";
+
   let group;
   let groupID;
   onMount(async () => {
@@ -34,6 +37,15 @@
 
   const createMeeting = async () => {
     console.log(meetingName);
+    if (typeof window !== "undefined") {
+      const queryString = sessionStorage.getItem("query");
+      const urlParams = new URLSearchParams(queryString);
+      wday = urlParams.get('weekday');
+      startH = urlParams.get('startHour');
+      startM = urlParams.get('startMinute');
+      endH = urlParams.get('endHour');
+      endM = urlParams.get('endMinute');
+    }
     if (step === "name") {
       if (!meetingName) {
         createMeetingMsg = "Write a meeting name";
