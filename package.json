@@ -32,7 +32,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.1",
     "axios": "^1.4.0",
-    "daisyui": "2.52.0",
+    "daisyui": "^3.1.0",
     "firebase": "^9.22.1",
     "random-avatar-generator": "^2.0.0",
     "vite-plugin-mkcert": "1.15.0"
