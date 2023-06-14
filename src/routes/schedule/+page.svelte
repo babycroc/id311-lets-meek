@@ -261,11 +261,11 @@
   }
 
   .undecided {
-    background-color: var(--orange);
+    background-color: var(--purple);
   }
 
   .hour.selected {
-    background-color: var(--hover-orange);
+    background-color: var(--hover-purple);
     /* background-image: linear-gradient(to bottom right, var(--purple), var(--light-purple)); */
     border-style: hidden;
   }
@@ -279,7 +279,7 @@
     position: sticky;
     top: 0;
     /* background-color: #1f63bb; */
-    background-color: var(--blue);
+    background-color: var(--purple);
     color: white;
     border-style: hidden;
     /* z-index: 1; */
@@ -287,7 +287,7 @@
 
   .th-left {
     /* background-color: #1f63bb; */
-    background-color: var(--blue);
+    background-color: var(--purple);
     color: white;
     border-style: hidden;
   }
