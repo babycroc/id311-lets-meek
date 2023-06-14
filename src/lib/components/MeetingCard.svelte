@@ -6,15 +6,19 @@
   import colorData from "../data/colors.json";
   import type { Color } from "../types";
   import { formatTime } from "../utils";
-  import type { Group } from "../../backend/groupManagement/groupClass.js";
   import type { Meeting } from "../../backend/meetingManagement/meetingClass";
   import { Place } from "../../backend/map/placeClass";
   import { onMount } from "svelte";
+  import { Group } from "../../backend/groupManagement/groupClass";
 
   export let meeting: Meeting;
 
+  let groupName;
   let building;
   onMount(async () => {
+    await Group.getGroupById(meeting.groupId).then(
+      (data) => (groupName = data.name)
+    );
     await Place.getPlaceById(meeting.places).then(
       (data) => (building = data.buildingName)
     );
@@ -39,6 +43,7 @@
 
 <Card background={color.background} border={color.main}>
   <h1>{meeting.name}</h1>
+  <p>{groupName}</p>
   <p>{building}</p>
   <p>
     {formatTime(meeting.colStart)} ~ {formatTime(meeting.colEnd)}, {printMeetingTime(
