@@ -68,6 +68,7 @@
     }
   };
 
+  let selectedPlace;
   const getLocation = (type: string) => {
     Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
       (data) => {
@@ -79,6 +80,7 @@
           console.log(data);
           lat = place.location.x;
           lon = place.location.y;
+          selectedPlace = place;
         });
       }
     );
@@ -172,6 +174,15 @@
           >
         </div>
       </div>
+      {#if selectedPlace}
+        <p>Building: {selectedPlace.buildingName}</p>
+        <p>
+          Rooms: {#each selectedPlace.rooms as room, id}
+            {#if id !== 0}{", "}{/if}
+            {room}{" "}
+          {/each}
+        </p>
+      {/if}
 
       <button class="btn btn-outline w-full" on:click={createMeeting}
         >Create Meeting</button
