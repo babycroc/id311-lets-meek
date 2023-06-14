@@ -13,6 +13,7 @@
 	let selectedCount = 0;
 	let selectedCells = new Array(48).fill(0);
 	let checking = false;
+	const currentTimestamp = Date.now();
 
 	function getTime(i) {
 		let hour = Math.floor(i / 2);
@@ -24,7 +25,7 @@
 
 	function selectCell(i, j) {
 		if (selectedCol==-1 || (selectedCol>=0 && selectedCol==i)) {
-			if (schedule[i][j].timeStamp == 0)
+			if (schedule[i][j].timeStamp == 0 || (schedule[i][j].timeStamp > 0 && schedule[i][j].timeStamp < currentTimestamp))
 				(schedule[i][j].timeStamp = -2), (state[i][j] = "undecided"), selectedCol = i, selectedCount++, selectedCells[j]=1;
 			else if (schedule[i][j].timeStamp == -2)
 				(schedule[i][j].timeStamp = 0), (state[i][j] = "empty-cell"), selectedCount--, selectedCells[j]=0;
@@ -117,7 +118,7 @@
 			{#each schedule[0] as hour, j}
 				<tr>
 					<th class="prevent-select th-left">{getTime(j)}</th>
-					{#if schedule[0][j].timeStamp != -1}
+					{#if schedule[0][j].timeStamp != -1 && schedule[0][j].timeStamp < currentTimestamp}
 						<td
 							class={state[0][j]}
 							on:mousedown={mouseHandler(0, j)}
@@ -127,7 +128,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[1][j].timeStamp != -1}
+					{#if schedule[1][j].timeStamp != -1 && schedule[1][j].timeStamp < currentTimestamp}
 						<td
 							class={state[1][j]}
 							on:mousedown={mouseHandler(1, j)}
@@ -137,7 +138,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[2][j].timeStamp != -1}
+					{#if schedule[2][j].timeStamp != -1 && schedule[2][j].timeStamp < currentTimestamp}
 						<td
 							class={state[2][j]}
 							on:mousedown={mouseHandler(2, j)}
@@ -147,7 +148,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[3][j].timeStamp != -1}
+					{#if schedule[3][j].timeStamp != -1 && schedule[3][j].timeStamp < currentTimestamp}
 						<td
 							class={state[3][j]}
 							on:mousedown={mouseHandler(3, j)}
@@ -157,7 +158,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[4][j].timeStamp != -1}
+					{#if schedule[4][j].timeStamp != -1 && schedule[4][j].timeStamp < currentTimestamp}
 						<td
 							class={state[4][j]}
 							on:mousedown={mouseHandler(4, j)}
@@ -167,7 +168,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[5][j].timeStamp != -1}
+					{#if schedule[5][j].timeStamp != -1 && schedule[5][j].timeStamp < currentTimestamp}
 						<td
 							class={state[5][j]}
 							on:mousedown={mouseHandler(5, j)}
@@ -177,7 +178,7 @@
 						<td class="hour selected" />
 					{/if}
 
-					{#if schedule[6][j].timeStamp != -1}
+					{#if schedule[6][j].timeStamp != -1 && schedule[6][j].timeStamp < currentTimestamp}
 						<td
 							class={state[6][j]}
 							on:mousedown={mouseHandler(6, j)}
