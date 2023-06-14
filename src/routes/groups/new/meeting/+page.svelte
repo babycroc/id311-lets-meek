@@ -68,20 +68,30 @@
     }
   };
 
-  const getLocation = (type: string) => {
-    Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
-      (data) => {
-        const placeList = data;
-        const index = type === "quiet" ? 0 : type === "moderate" ? 1 : 2;
-        let place;
-        Place.getPlaceById(data[index]).then((data) => {
-          place = data;
-          console.log(data);
-          lat = place.location.x;
-          lon = place.location.y;
-        });
-      }
+  let selectedPlace;
+  const getLocation = async (type: string) => {
+    await getSuggestedPlaces().then((data) => {
+      console.log(placeList);
+      const index = type === "quiet" ? 0 : type === "moderate" ? 1 : 2;
+      let place;
+      Place.getPlaceById(data[index]).then((data) => {
+        place = data;
+        console.log(data);
+        lat = place.location.x;
+        lon = place.location.y;
+        selectedPlace = place;
+      });
+    });
+  };
+
+  let placeList;
+  const getSuggestedPlaces = async () => {
+    if (placeList) return placeList;
+
+    await Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
+      (data) => (placeList = data)
     );
+    return placeList;
   };
 </script>
 
@@ -113,12 +123,7 @@
         center={{ lat: 36.3742791, lng: 127.3603806 }}
         zoom={16}
         places={true}
-        placeList={Place.findSuggestedPlacesForGroup(
-          group,
-          wday,
-          startH,
-          startM
-        )}
+        placeList={getSuggestedPlaces()}
         {placeType}
         --height="400px"
       />
@@ -161,6 +166,15 @@
           >
         </div>
       </div>
+      {#if selectedPlace}
+        <p>Building: {selectedPlace.buildingName}</p>
+        <p>
+          Rooms: {#each selectedPlace.rooms as room, id}
+            {#if id !== 0}{", "}{/if}
+            {room}{" "}
+          {/each}
+        </p>
+      {/if}
 
       <button class="btn btn-outline w-full" on:click={createMeeting}
         >Create Meeting</button

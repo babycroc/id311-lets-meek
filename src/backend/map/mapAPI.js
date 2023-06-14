@@ -1,37 +1,38 @@
-import axios from 'axios';
+import axios from "axios";
 
 const apiKey = "AIzaSyClfz_9KAgoyC0Fv22u_scyUYr5ctjeVJg";
 
 function buildUrl(x, y, radius, text) {
-    let query = encodeURI(text);
-    return `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${x}%2C${y}&radius=${radius}&key=${apiKey}`
+  let query = encodeURI(text);
+  return `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${x}%2C${y}&radius=${radius}&key=${apiKey}`;
 }
 
 function searchLocationByText(text) {
-    let config = {
-        method: 'get',
-        url: buildUrl("36.3721426", "127.3603901", 3500, text),
-        headers: { }
-    };
+  let config = {
+    method: "get",
+    url: buildUrl("36.3721426", "127.3603901", 3500, text),
+    headers: {},
+  };
 
-    axios(config).then(function (response) {
-        // console.log(JSON.stringify(response.data));
-        console.log(response.data);
+  axios(config)
+    .then(function (response) {
+      // console.log(JSON.stringify(response.data));
+      console.log(response.data);
     })
     .catch(function (error) {
-        console.log(error);
+      console.log(error);
     });
 }
 
 async function getPlaceDetail(placeId) {
-    let config = {
-        method: 'get',
-        url: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${apiKey}`,
-        headers: { }
-    };
+  let config = {
+    method: "get",
+    url: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${apiKey}`,
+    headers: {},
+  };
 
-    let res = await axios(config);
-    return res.data;
+  let res = await axios(config);
+  return res.data;
 }
 
 /**
@@ -41,28 +42,28 @@ async function getPlaceDetail(placeId) {
  * @returns {Array({name, placeId, x, y})}
  */
 export async function getAutoComplete(text) {
-    const x = "36.3721426";
-    const y = "127.3603901";
-    const radius = 1000;
-    let config = {
-        method: 'get',
-        url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${text}&strictbounds=true&location=${x}%2C${y}&radius=${radius}&key=${apiKey}`,
-        headers: { }
-    };
+  const x = "36.3721426";
+  const y = "127.3603901";
+  const radius = 1000;
+  let config = {
+    method: "get",
+    url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${text}&strictbounds=true&location=${x}%2C${y}&radius=${radius}&key=${apiKey}`,
+    headers: {},
+  };
 
-    let response = await axios(config);
-    let res = [];
-    let predList = response.data.predictions;
-    for (let place of predList) {
-        let detail = await getPlaceDetail(place.place_id);
-        res.push({
-            name: place.description,
-            placeId: place.place_id,
-            x: detail.result.geometry.location.lng,
-            y: detail.result.geometry.location.lat
-        });
-    }
-    return res;
+  let response = await axios(config);
+  let res = [];
+  let predList = response.data.predictions;
+  for (let place of predList) {
+    let detail = await getPlaceDetail(place.place_id);
+    res.push({
+      name: place.description,
+      placeId: place.place_id,
+      x: detail.result.geometry.location.lng,
+      y: detail.result.geometry.location.lat,
+    });
+  }
+  return res;
 }
 
 /**
@@ -74,22 +75,24 @@ export async function getAutoComplete(text) {
  * @returns {Array({result_code, result_msg, key, summary})}
  */
 export async function kakaoGetTraveltime(origins, destX, destY) {
-    const headers = {
-        "Content-Type": "application/json",
-        "Authorization": "KakaoAK 445ab13d28d7da0514ff0bfbeb8bef9b"
-    };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "KakaoAK c7e82476abb126410d50718213c6bcd5",
+  };
 
-    const data = {
-        "origins": origins,
-        "destination": {
-            "x": destX,
-            "y": destY
-        },
-        "radius": 1500
-    };
+  const data = {
+    origins: origins,
+    destination: {
+      x: destX,
+      y: destY,
+    },
+    radius: 1500,
+  };
+  console.log(origins, destX, destY);
 
-    const url = 'https://apis-navi.kakaomobility.com/v1/origins/directions';
+  const url = "https://apis-navi.kakaomobility.com/v1/origins/directions";
 
-    let response = await axios.post(url, data, {headers: headers});
-    return response.data.routes;
+  let response = await axios.post(url, data, { headers: headers });
+  console.log(response);
+  return response.data.routes;
 }
