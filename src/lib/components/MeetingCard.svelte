@@ -8,8 +8,17 @@
   import { formatTime } from "../utils";
   import type { Group } from "../../backend/groupManagement/groupClass.js";
   import type { Meeting } from "../../backend/meetingManagement/meetingClass";
+  import { Place } from "../../backend/map/placeClass";
+  import { onMount } from "svelte";
 
   export let meeting: Meeting;
+
+  let building;
+  onMount(async () => {
+    await Place.getPlaceById(meeting.places).then(
+      (data) => (building = data.buildingName)
+    );
+  });
 
   // const groupIdx: number = groupData.findIndex(
   //   (group: Group) => group.id == meeting.groupId
@@ -30,7 +39,12 @@
 
 <Card background={color.background} border={color.main}>
   <h1>{meeting.name}</h1>
-  <p>{formatTime(meeting.colStart)} ~ {formatTime(meeting.colEnd)}, {printMeetingTime(meeting.startTime)}</p>
+  <p>{building}</p>
+  <p>
+    {formatTime(meeting.colStart)} ~ {formatTime(meeting.colEnd)}, {printMeetingTime(
+      meeting.startTime
+    )}
+  </p>
 </Card>
 
 <style>

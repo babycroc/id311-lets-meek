@@ -19,8 +19,9 @@
   let endH: number = 4;
   let endM: number = 0;
 
-  let lat="";
-  let lon="";
+  let lat = "";
+  let lon = "";
+  let selectedPlace;
 
   let group;
   let groupID;
@@ -42,11 +43,11 @@
     if (typeof window !== "undefined") {
       const queryString = sessionStorage.getItem("query");
       const urlParams = new URLSearchParams(queryString);
-      wday = urlParams.get('weekday');
-      startH = urlParams.get('startHour');
-      startM = urlParams.get('startMinute');
-      endH = urlParams.get('endHour');
-      endM = urlParams.get('endMinute');
+      wday = urlParams.get("weekday");
+      startH = urlParams.get("startHour");
+      startM = urlParams.get("startMinute");
+      endH = urlParams.get("endHour");
+      endM = urlParams.get("endMinute");
     }
     if (step === "name") {
       if (!meetingName) {
@@ -70,7 +71,7 @@
         await Meeting.createNewMeeting(
           group,
           meetingName,
-          { x: lat, y: lon },
+          selectedPlace.id,
           wday,
           startH,
           startM,
@@ -82,7 +83,6 @@
     }
   };
 
-  let selectedPlace;
   const getLocation = async (type: string) => {
     await getSuggestedPlaces().then((data) => {
       console.log(placeList);
@@ -93,6 +93,7 @@
         console.log(data);
         lat = place.location.x;
         lon = place.location.y;
+
         selectedPlace = place;
       });
     });
@@ -126,9 +127,11 @@
 
     {#if step === "time"}
       <h1 class="text-xl text-center">Select Time</h1>
-      <ScheduleTable handleClick={() => {
-        step = "place";
-      }}></ScheduleTable>
+      <ScheduleTable
+        handleClick={() => {
+          step = "place";
+        }}
+      />
     {/if}
 
     {#if step === "place"}
