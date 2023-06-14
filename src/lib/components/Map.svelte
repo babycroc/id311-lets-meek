@@ -148,10 +148,12 @@
   $: if (map) changeSelectedPlace(placeType);
 
   onMount(async () => {
-    if (places)
+    if (places) {
+      console.log(placeList);
       await placeList.then((data) => {
         placeData = data;
       });
+    }
     initMap();
     sessionStorage.setItem("scheduleX", center.lng);
     sessionStorage.setItem("scheduleY", center.lat);
