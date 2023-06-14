@@ -20,11 +20,17 @@
 
   console.log(groupIdx);
   const color: Color = colorData[groupIdx];
+
+  function printMeetingTime(timestamp) {
+    const date = new Date(Number(timestamp));
+    let dateFormat = date.toDateString();
+    return dateFormat;
+  }
 </script>
 
 <Card background={color.background} border={color.main}>
   <h1>{meeting.name}</h1>
-  <p>{formatTime(meeting.colStart)} ~ {formatTime(meeting.colEnd)}</p>
+  <p>{formatTime(meeting.colStart)} ~ {formatTime(meeting.colEnd)}, {printMeetingTime(meeting.startTime)}</p>
 </Card>
 
 <style>
