@@ -5,11 +5,19 @@
   import { Group } from "../../../../backend/groupManagement/groupClass";
   import { Meeting } from "../../../../backend/meetingManagement/meetingClass";
   import { Place } from "../../../../backend/map/placeClass";
+  import ScheduleTable from "$lib/components/ScheduleTable.svelte";
 
   let step: "name" | "time" | "place" = "name";
   let placeType: "quiet" | "moderate" | "loud" | null = null;
 
   let createMeetingMsg: string = "";
+
+  let meetingName: string = "";
+  let wday: string = "Monday";
+  let startH: number = 2;
+  let startM: number = 30;
+  let endH: number = 4;
+  let endM: number = 0;
 
   let group;
   let groupID;
@@ -24,12 +32,6 @@
     }
   });
 
-  let meetingName: string = "";
-  let wday: string = "Monday";
-  let startH: number = 2;
-  let startM: number = 30;
-  let endH: number = 4;
-  let endM: number = 0;
   const createMeeting = async () => {
     await Meeting.createNewMeeting(
       group,
@@ -82,22 +84,9 @@
 
     {#if step === "time"}
       <h1 class="text-xl text-center">Select Time</h1>
-      <p>
-        Selected time:
-        <b>
-          {wday}
-          {startH}:{(startM + "0").slice(0, 2)}
-          {startH < 12 ? "AM" : "PM"} ~ {endH}:{(endM + "0").slice(0, 2)}
-          {endH < 12 ? "AM" : "PM"}
-        </b>
-      </p>
-      (Place to put schedule)
-      <button
-        class="btn btn-outline w-full"
-        on:click={() => {
-          step = "place";
-        }}>Next</button
-      >
+      <ScheduleTable handleClick={() => {
+        step = "place";
+      }}></ScheduleTable>
     {/if}
 
     {#if step === "place"}
