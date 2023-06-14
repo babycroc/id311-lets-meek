@@ -1,41 +1,11 @@
-# create-svelte
+# Let's Meek
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## ID311 Group 2
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Backend documentation
-To view the document, please open the file `backendDoc/index.html` with Live server.
+- Teammates
+  - 20190710 Ba Vinh Quang Nguyen / nbvquang99@kaist.ac.kr
+  - 20200510 이지윤 (Nicole Lee) / nicolelee2001@kaist.ac.kr
+  - 20200773 이수연 (Suyoun Lee) / jenslee705@kaist.ac.kr
+- Github Repo URL: [https://github.com/babycroc/id311-lets-meek](https://github.com/babycroc/id311-lets-meek)
+- Deploy Link: [https://id311-lets-meek.vercel.app/](https://id311-lets-meek.vercel.app/)
+- YouTube Video URL: TBD
