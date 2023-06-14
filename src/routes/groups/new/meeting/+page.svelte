@@ -29,6 +29,7 @@
     // user = JSON.parse(localStorage.getItem("user"));
     // groupID = localStorage.getItem("groupID");
     groupID = sessionStorage.getItem("groupID");
+    console.log(groupID);
     if (groupID) {
       await Group.getGroupById(groupID).then((data) => {
         group = data;
@@ -41,13 +42,16 @@
   const createMeeting = async () => {
     console.log(meetingName);
     if (typeof window !== "undefined") {
+      // if (step === "time") while (!sessionStorage.getItem("query")) {}
       const queryString = sessionStorage.getItem("query");
+
       const urlParams = new URLSearchParams(queryString);
       wday = urlParams.get("weekday");
-      startH = urlParams.get("startHour");
-      startM = urlParams.get("startMinute");
-      endH = urlParams.get("endHour");
-      endM = urlParams.get("endMinute");
+      startH = Number(urlParams.get("startHour"));
+      startM = Number(urlParams.get("startMinute"));
+      endH = Number(urlParams.get("endHour"));
+      endM = Number(urlParams.get("endMinute"));
+      console.log(step, wday, startH, startM, endH, endM);
     }
     if (step === "name") {
       if (!meetingName) {
@@ -127,11 +131,7 @@
 
     {#if step === "time"}
       <h1 class="text-xl text-center">Select Time</h1>
-      <ScheduleTable
-        handleClick={() => {
-          step = "place";
-        }}
-      />
+      <ScheduleTable handleClick={createMeeting} />
     {/if}
 
     {#if step === "place"}
