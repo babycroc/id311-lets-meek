@@ -102,7 +102,7 @@
 </script>
 
 <svelte:window on:mousedown={beginDrag} on:mouseup={endDrag} />
-<div class="overflow-x-auto hide-scrollbar" style="margin-top: -24px; margin-left: -24px; margin-right: -24px; margin-bottom: -20px; border-bottom: 0px solid #1f63bb;">
+<div class="overflow-x-auto hide-scrollbar" style="margin-top: -22px; margin-left: -24px; margin-right: -24px; margin-bottom: -11px; border-bottom: 0px solid #1f63bb;">
 	<table>
 		<thead class="prevent-select">
 			<tr>
@@ -242,11 +242,11 @@
 	}
 
 	.undecided {
-		background-color: orange;
+		background-color: var(--orange);
 	}
 
 	.hour.selected {
-		background-color: var(--purple);
+		background-color: var(--hover-orange);
 		/* background-image: linear-gradient(to bottom right, var(--purple), var(--light-purple)); */
 		border-style: hidden;
 	}
@@ -259,14 +259,16 @@
 	.th-top {
 		position: sticky;
 		top: 0;
-		background-color: #1f63bb;
+		/* background-color: #1f63bb; */
+		background-color: var(--blue);
 		color: white;
 		border-style: hidden;
 		/* z-index: 1; */
 	}
 
 	.th-left {
-		background-color: #1f63bb;
+		/* background-color: #1f63bb; */
+		background-color: var(--blue);
 		color: white;
 		border-style: hidden;
 		

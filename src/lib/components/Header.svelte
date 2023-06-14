@@ -24,7 +24,7 @@
         {/if}
       </div>
     </label>
-    <ul tabindex="0" class="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+    <ul tabindex="0" class="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-22">
       <li><a on:click={handleLogout}>Logout</a></li>
     </ul>
   </div>
@@ -48,11 +48,12 @@
     /* display: flex;
     flex-direction: column;
     justify-content: center; */
-    width: 100%;
-    height: 60px;
-    /* color: white; */
-    background-color: var(--purple);
+    /* width: 100%; */
+    /* height: 60px; */
+    /* background-image: radial-gradient(circle, #7e22ce, #712fd1, #6239d4, #5241d6, #4047d7, #6d3dcb, #8a31be, #9f24af, #c30087, #d2005d, #d01736, #c2410c); */
+    background-image: linear-gradient(to right, #7e22ce, #712fd1, #6239d4, #5241d6, #4047d7, #6d3dcb, #8a31be, #9f24af, #c30087, #d2005d, #d01736, #c2410c);
     z-index: 1;
+    border-radius: 0 0 5px 5px;
     /* font-size: 24px; */
     /* font-weight: bold; */
     /* padding: 24px; */
