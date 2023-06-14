@@ -44,29 +44,11 @@
           })
       );
       map.setOptions({
+        clickableIcons: false,
         styles: [
           {
             featureType: "poi",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "poi.business",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "poi.government",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "poi.medical",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "poi.park",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "poi.school",
+            elementType: "labels",
             stylers: [{ visibility: "off" }],
           },
         ],
