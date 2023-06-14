@@ -262,7 +262,7 @@
 		background-color: #1f63bb;
 		color: white;
 		border-style: hidden;
-		z-index: 1;
+		/* z-index: 1; */
 	}
 
 	.th-left {

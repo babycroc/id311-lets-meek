@@ -66,7 +66,9 @@ export async function handleLogin(email, password) {
  */
 export async function handleLogout() {
     try {
-        await authHandlers.logout(email, password);
+        await authHandlers.logout();
+        sessionStorage.clear();
+        window.location.href = "/login";
     } catch(err) {
         console.log("There was a logout error: ", err);
     }
