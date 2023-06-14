@@ -4,6 +4,7 @@
 	import { Schedule } from "../../backend/scheduleManagement/scheduleClass";
 	import { onMount } from "svelte";
 	import { each } from "svelte/internal";
+    import { Group } from "../../backend/groupManagement/groupClass.js";
 
 	export let handleClick = () => {};
 	let currentSchedule;
@@ -54,24 +55,10 @@
 	};
 
 	onMount(async () => {
-		// await User.getUserById(localStorage.getItem("userID")).then((data) => {
-		await User.getUserById(sessionStorage.getItem("userID")).then((data) => {
-			currentSchedule = data.schedule.table;
-			schedule = currentSchedule;
-			//schedule[0][0].timeStamp = -1;
-		});
+		let group = await Group.getGroupById(sessionStorage.getItem("groupID"));
+		currentSchedule = await group.getGroupSchedule();
+		schedule = currentSchedule.table;
 	});
-
-	function logSelectedTimes() {
-		for (let i = 0; i < schedule.length; i++) {
-			for (let j = 0; j < schedule[i].length; j++) {
-				if (schedule[i][j].timeStamp == -2) {
-					let [weekday, hour, minute] = Schedule.indexToTime(i, j);
-					console.log(`Day: ${weekday}, Time: ${hour}:${minute}`);
-				}
-			}
-		}
-	}
 
 	function checkContinuous() {
 		if (selectedCount==1) return true;
