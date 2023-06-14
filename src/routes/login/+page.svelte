@@ -91,7 +91,7 @@
       class="btn btn-primary w-full"
     >
       {#if authenticating}
-        <i class="loading loading-infinity loading-sm" />
+        <span class="loading loading-spinner"></span>
       {:else}
         Submit
       {/if}
