@@ -35,6 +35,7 @@ export async function handleRegister(email, password, confirmPass) {
         let userCred = await authHandlers.signup(email, password);
         let user = new User(userCred.user.email, userCred.user.uid, [], new Schedule(), []);
         await user.createNewUser();
+        user.setDefaultLocation("127.3621", "36.3737");
         return user;
     } catch(err) {
         console.log("There was a register error: ", err);
