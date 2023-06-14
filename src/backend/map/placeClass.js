@@ -140,8 +140,14 @@ class Place {
     let destinations = await Place.getAllPlaces();
     let sumArr = [];
     for (let dest of destinations) {
+      // TODO: add default location coordinates
+      const newOrigins = origins.map(({ x, y, key }) =>
+        x == "" || y == ""
+          ? { x: "127.3621", y: "36.3737", key }
+          : { x, y, key }
+      );
       let tmpRes = await kakaoGetTraveltime(
-        origins,
+        newOrigins,
         dest.location.x,
         dest.location.y
       );

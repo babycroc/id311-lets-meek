@@ -6,8 +6,8 @@
   import { Meeting } from "../../../../backend/meetingManagement/meetingClass";
   import { Place } from "../../../../backend/map/placeClass";
 
-  let step: "time" | "place" = "time";
-  let placeType: "quiet" | "moderate" | "loud" | null = "quiet";
+  let step: "name" | "time" | "place" = "name";
+  let placeType: "quiet" | "moderate" | "loud" | null = null;
 
   let createMeetingMsg: string = "";
 
@@ -24,28 +24,62 @@
     }
   });
 
+  let meetingName: string = "";
   let wday: string = "Monday";
   let startH: number = 2;
   let startM: number = 30;
   let endH: number = 4;
   let endM: number = 0;
   const createMeeting = async () => {
-    // await Meeting.createNewMeeting(
-    //   group,
-    //   name,
-    //   { x: x, y: y },
-    //   wday,
-    //   startH,
-    //   startM,
-    //   endH,
-    //   endM
-    // );
-    // window.location.href = "/groups";
+    await Meeting.createNewMeeting(
+      group,
+      meetingName,
+      { x: lat, y: lon },
+      wday,
+      startH,
+      startM,
+      endH,
+      endM
+    );
+    window.location.href = "/meetings";
+  };
+
+  let lat: string;
+  let lon: string;
+  const getLocation = (type: string) => {
+    Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
+      (data) => {
+        const placeList = data;
+        const index = type === "quiet" ? 0 : type === "moderate" ? 1 : 2;
+        let place;
+        Place.getPlaceById(data[index]).then((data) => {
+          place = data;
+          console.log(data);
+          lat = place.location.x;
+          lon = place.location.y;
+        });
+      }
+    );
   };
 </script>
 
 <div>
   <div class="form-control list-container">
+    {#if step === "name"}
+      <h1 class="text-xl text-center">Meeting Name</h1>
+      <input
+        type="text"
+        bind:value={meetingName}
+        class="input input-bordered w-full"
+      />
+      <button
+        class="btn btn-outline w-full"
+        on:click={() => {
+          step = "time";
+        }}>Next</button
+      >
+    {/if}
+
     {#if step === "time"}
       <h1 class="text-xl text-center">Select Time</h1>
       <p>
@@ -90,6 +124,7 @@
               : ''}"
             on:click={() => {
               placeType = "quiet";
+              getLocation(placeType);
               console.log(placeType);
             }}>Quiet</button
           >
@@ -101,6 +136,7 @@
               : ''}"
             on:click={() => {
               placeType = "moderate";
+              getLocation(placeType);
               console.log(placeType);
             }}>Moderate</button
           >
@@ -112,6 +148,7 @@
               : ''}"
             on:click={() => {
               placeType = "loud";
+              getLocation(placeType);
               console.log(placeType);
             }}>Loud</button
           >
