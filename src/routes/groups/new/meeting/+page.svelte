@@ -6,7 +6,7 @@
   import { Meeting } from "../../../../backend/meetingManagement/meetingClass";
   import { Place } from "../../../../backend/map/placeClass";
 
-  let step: "time" | "place" = "time";
+  let step: "name" | "time" | "place" = "name";
   let placeType: "quiet" | "moderate" | "loud" | null = null;
 
   let createMeetingMsg: string = "";
@@ -24,6 +24,7 @@
     }
   });
 
+  let meetingName: string = "";
   let wday: string = "Monday";
   let startH: number = 2;
   let startM: number = 30;
@@ -32,7 +33,7 @@
   const createMeeting = async () => {
     await Meeting.createNewMeeting(
       group,
-      name,
+      meetingName,
       { x: lat, y: lon },
       wday,
       startH,
@@ -64,6 +65,21 @@
 
 <div>
   <div class="form-control list-container">
+    {#if step === "name"}
+      <h1 class="text-xl text-center">Meeting Name</h1>
+      <input
+        type="text"
+        bind:value={meetingName}
+        class="input input-bordered w-full"
+      />
+      <button
+        class="btn btn-outline w-full"
+        on:click={() => {
+          step = "time";
+        }}>Next</button
+      >
+    {/if}
+
     {#if step === "time"}
       <h1 class="text-xl text-center">Select Time</h1>
       <p>
