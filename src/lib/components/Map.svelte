@@ -11,9 +11,14 @@
   export let places = false;
   export let placeList = [];
   export let placeType;
-  console.log("hi", placeType);
 
   let map;
+  let mapMarker = {
+    current: "",
+    quiet: "",
+    moderate: "",
+    loud: "",
+  };
   let placeData;
 
   console.log("Passed props:", center, zoom);
@@ -74,7 +79,7 @@
       // infoWindow.open(map);
 
       if (marker) {
-        let mapMarker = new google.maps.Marker({
+        mapMarker.current = new google.maps.Marker({
           position: center,
           map,
           icon: "/map_marker_main.png",
@@ -92,14 +97,20 @@
           // );
           // infoWindow.open(map);
 
-          mapMarker.setMap(null);
-          mapMarker = new google.maps.Marker({
+          mapMarker.current.setMap(null);
+          mapMarker.current = new google.maps.Marker({
             position: mapsMouseEvent.latLng,
             map,
             icon: "/map_marker_main.png",
           });
-          sessionStorage.setItem("scheduleX", mapMarker.getPosition().lng());
-          sessionStorage.setItem("scheduleY", mapMarker.getPosition().lat());
+          sessionStorage.setItem(
+            "scheduleX",
+            mapMarker.current.getPosition().lng()
+          );
+          sessionStorage.setItem(
+            "scheduleY",
+            mapMarker.current.getPosition().lat()
+          );
         });
       }
 
@@ -110,8 +121,8 @@
               lat: parseFloat(place.location.y),
               lng: parseFloat(place.location.x),
             };
-            console.log(index);
-            let mapMarker = new google.maps.Marker({
+            const type = ["quiet", "moderate", "loud"][index];
+            mapMarker[type] = new google.maps.Marker({
               position: coordinates,
               map,
               icon:
@@ -127,7 +138,7 @@
     });
   };
 
-  export const changeSelectedPlace = (placeType) => {
+  const changeSelectedPlace = (placeType) => {
     if (places) {
       placeData.map(async (placeID, index) => {
         await Place.getPlaceById(placeID).then((place) => {
@@ -135,10 +146,9 @@
             lat: parseFloat(place.location.y),
             lng: parseFloat(place.location.x),
           };
-          console.log(index);
-          let mapMarker;
-          mapMarker.setMap(null);
-          mapMarker = new google.maps.Marker({
+          const type = ["quiet", "moderate", "loud"][index];
+          mapMarker[type]?.setMap(null);
+          mapMarker[type] = new google.maps.Marker({
             position: coordinates,
             map,
             icon:
@@ -153,16 +163,12 @@
     }
   };
 
-  const onClick = (event) => {
-    console.log(event);
-  };
+  $: if (map) changeSelectedPlace(placeType);
 
   onMount(async () => {
-    console.log(placeList);
     if (places)
       await placeList.then((data) => {
         placeData = data;
-        console.log(data);
       });
     initMap();
     sessionStorage.setItem("scheduleX", center.lng);
@@ -171,7 +177,6 @@
 </script>
 
 <div id="map" />
-{placeType}
 
 <style>
   #map {
