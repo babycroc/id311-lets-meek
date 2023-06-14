@@ -33,21 +33,41 @@
   });
 
   const createMeeting = async () => {
-    await Meeting.createNewMeeting(
-      group,
-      meetingName,
-      { x: lat, y: lon },
-      wday,
-      startH,
-      startM,
-      endH,
-      endM
-    );
-    window.location.href = "/meetings";
+    console.log(meetingName);
+    if (step === "name") {
+      if (!meetingName) {
+        createMeetingMsg = "Write a meeting name";
+      } else {
+        createMeetingMsg = "";
+        step = "time";
+      }
+    } else if (step === "time") {
+      if (wday === "" || startH < 0 || startM < 0 || endH < 0 || endM < 0) {
+        createMeetingMsg = "Select a meeting time";
+      } else {
+        createMeetingMsg = "";
+        step = "place";
+      }
+    } else if (step === "place") {
+      if (lat === "" || lon === "") {
+        createMeetingMsg = "Select a meeting location";
+      } else {
+        createMeetingMsg = "";
+        await Meeting.createNewMeeting(
+          group,
+          meetingName,
+          { x: lat, y: lon },
+          wday,
+          startH,
+          startM,
+          endH,
+          endM
+        );
+        window.location.href = "/meetings";
+      }
+    }
   };
 
-  let lat: string;
-  let lon: string;
   const getLocation = (type: string) => {
     Place.findSuggestedPlacesForGroup(group, wday, startH, startM).then(
       (data) => {
@@ -74,12 +94,10 @@
         bind:value={meetingName}
         class="input input-bordered w-full"
       />
-      <button
-        class="btn btn-outline w-full"
-        on:click={() => {
-          step = "time";
-        }}>Next</button
+      <button class="btn btn-outline w-full" on:click={createMeeting}
+        >Next</button
       >
+      <p class="error">{createMeetingMsg}</p>
     {/if}
 
     {#if step === "time"}
