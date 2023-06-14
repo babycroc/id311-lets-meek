@@ -41,7 +41,9 @@
     <GroupCard {group} color={colors[i % colors.length]} />
   {/each}
 </div>
-<AddButton fixed onClick={newGroup} />
+<div style="position: relative, height: calc(100vh - 100px)">
+  <AddButton fixed onClick={newGroup} />
+</div>
 
 <style>
 </style>

@@ -31,7 +31,7 @@
 <style>
   .fixed-button {
     position: absolute;
-    right: 430px;
     bottom: 80px;
+    margin-left: calc(min(720px, 100vw) - 90px);
   }
 </style>
