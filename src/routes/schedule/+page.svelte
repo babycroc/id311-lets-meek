@@ -102,22 +102,21 @@
 </script>
 
 <svelte:window on:mousedown={beginDrag} on:mouseup={endDrag} />
-<div class="overflow-x-auto hide-scrollbar">
+<div class="overflow-x-auto hide-scrollbar" style="margin-top: -24px; margin-left: -24px; margin-right: -24px; margin-bottom: -20px; border-bottom: 0px solid #1f63bb;">
 	<table>
 		<thead class="prevent-select">
 			<tr>
-				<th class="day" />
+				<th class="day th-top" style="border-radius: 4px 0 0 0;"> </th>
 				{#each days as day}
-					<th class="day">{day}</th>
+					<th class="day th-top" style={day!="Sun" || "border-radius: 0 4px 0 0;"}>{day}</th>
 				{/each}
-				<th />
 			</tr>
 		</thead>
 
 		<tbody>
 			{#each schedule[0] as hour, j}
 				<tr>
-					<th class="prevent-select">{getTime(j)}</th>
+					<th class="prevent-select th-left">{getTime(j)}</th>
 					{#if schedule[0][j].timeStamp != -1}
 						<td
 							class={state[0][j]}
@@ -220,8 +219,9 @@
 	.day {
 		text-align: center;
 		font-weight: bold;
-		height: 20px;
+		height: 35px;
 		border: 1px solid #ddd;
+		width: 60px;
 	}
 
 	.time {
@@ -247,14 +247,29 @@
 
 	.hour.selected {
 		background-color: var(--purple);
-		border: 0px;
+		/* background-image: linear-gradient(to bottom right, var(--purple), var(--light-purple)); */
+		border-style: hidden;
 	}
 
 	th {
-		position: sticky;
 		top: 0;
 		background-color: #fff;
+	}
+
+	.th-top {
+		position: sticky;
+		top: 0;
+		background-color: #1f63bb;
+		color: white;
+		border-style: hidden;
 		z-index: 1;
+	}
+
+	.th-left {
+		background-color: #1f63bb;
+		color: white;
+		border-style: hidden;
+		
 	}
 
 	.btn-circle {
