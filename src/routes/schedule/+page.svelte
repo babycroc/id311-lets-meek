@@ -102,7 +102,7 @@
 </script>
 
 <svelte:window on:mousedown={beginDrag} on:mouseup={endDrag} />
-<div class="overflow-x-auto">
+<div class="overflow-x-auto hide-scrollbar">
 	<table>
 		<thead class="prevent-select">
 			<tr>
@@ -202,6 +202,10 @@
 		border-collapse: collapse;
 	}
 
+	.hide-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
 	.prevent-select {
 		-webkit-user-select: none; /* Safari */
 		-ms-user-select: none; /* IE 10 and IE 11 */
@@ -243,6 +247,7 @@
 
 	.hour.selected {
 		background-color: var(--purple);
+		border: 0px;
 	}
 
 	th {
