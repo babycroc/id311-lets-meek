@@ -84,7 +84,7 @@ This is not a class, it is a collection of functions that utilize the Google Map
 # IV. Challenges
 1. Learning Curve: Familiarizing ourself with SvelteKit, daisyUI, Firebase Authentication, Firestore, and the map APIs may take some time and effort.
 
-2. Integration: Integrating multiple technologies can be challenging, especially when they have different APIs and conventions. Ensuring smooth integration between SvelteKit, daisyUI, Firebase Authentication, Firestore, and the map APIs requires careful attention to documentation and best practices.
+2. Integration: Integrating multiple technologies can be challenging, especially when they have different APIs and conventions. Ensuring smooth integration between SvelteKit, daisyUI, Firebase Authentication, Firestore, and the map APIs requires careful attention to documentation and best practices. Moreover, althought the backend API is documented with JSdoc, it is still difficult to integrate between Backend and Frontend, a lot of bugs occured, and requiring multiple meetings and parallel programming session to resolve.
 
 3. Authentication and Authorization: Implementing user authentication and authorization using Firebase Authentication is not complex, but when combined with other services like Firestore. We face challenges in setting up managing user sessions, and storing user data into database.
 
@@ -93,8 +93,6 @@ This is not a class, it is a collection of functions that utilize the Google Map
 5. Map API Integration: Integrating the Google Map API or Kakao Map API does pose challenges, such as obtaining API keys, setting up proper authentication and authorization, and ensuring smooth interactions between the maps and your application's data. The API quotas is also a problem.
 
 6. Debugging and Troubleshooting: As with any software development project, debugging and troubleshooting is very time-consuming and challenging. Dealing with issues related to data flow, API integrations, or promises and async functions require careful investigation and problem-solving skills.
-   
-7. Integration Backend & Frontend: Althought the backend API is documented with JSdoc, it is still difficult to integrate between these components, a lot of bugs occured, and requiring multiple meetings and parallel programming session to resolve.
 
 # V. Acknowledge
 - Reference: 
