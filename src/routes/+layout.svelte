@@ -15,6 +15,7 @@
     // userID = localStorage.getItem("userID");
     userID = sessionStorage.getItem("userID");
     if (userID) {
+      if ($page.url.pathname === "/login" || $page.url.pathname === "/") window.location.href = "/groups";
       await User.getUserById(userID).then((data) => {
         user = data;
         console.log("From Layout - User info: ", data);
@@ -32,7 +33,9 @@
 </script>
 
 <div class="app">
+  {#if $page.url.pathname !== "/"}
   <Header {title} {user} />
+  {/if}
   <main class="list-container">
     <slot />
   </main>
