@@ -28,7 +28,7 @@
    - 20200773 이수연 (Suyoun Lee) / jenslee705@kaist.ac.kr
 2. **GIT URL**: [https://github.com/babycroc/id311-lets-meek](https://github.com/babycroc/id311-lets-meek)
 3. **Deploy Link**: [https://id311-lets-meek.vercel.app/](https://id311-lets-meek.vercel.app/)
-4. **Youtube Demo Video**: [Click here]()
+4. **Youtube Demo Video**: [Click here](https://youtu.be/VYxQf9JLeqs)
 
 # II. App Description
 <p align="center">
@@ -39,7 +39,7 @@
 This app focuses on KAIST students. It helps to manage the weekly class schedule and also group meetings since every KAIST student would join multiple groups each semester.
 
 ## 2. The app features
-*In this section, briefly describe application features (for more details and visualization, please refer to [Demo Video]()).*
+*In this section, briefly describe application features (for more details and visualization, please refer to [Demo Video](https://youtu.be/VYxQf9JLeqs)).*
 ### *Account system*
 - User can `create account` with email and `login` to use the function of the app.
 ### *Schedule & meeting management*
